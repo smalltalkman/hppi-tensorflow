@@ -24,10 +24,10 @@ def generate_total_data_file(CT_INPUT_FILE, AC_INPUT_FILE, OUTPUT_FILE):
     ct_line = ct_input_file.readline()
     ac_line = ac_input_file.readline()
     while ct_line and ac_line:
-        ct_line=ct_line.strip('\n')
-        ac_line=ac_line.strip('\n')
+        ct_line=ct_line.strip()
+        ac_line=ac_line.strip()
         if ct_line and ac_line:
-            output_line = ct_line + " " + ac_line + "\n"
+            output_line = ct_line + " " + ac_line + os.linesep
             output_file.write(output_line)
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
@@ -49,14 +49,14 @@ def split_data_to_file():
     index = 1
     line = positive_interaction_file.readline()
     while line:
-        line=line.strip('\n')
+        line=line.strip()
         if line:
             if index<=30000:
-                hppids_train_ppis.write(line+"\n")
-                hppids_train_labels.write("1 0\n")
+                hppids_train_ppis.write(line+os.linesep)
+                hppids_train_labels.write("1 0"+os.linesep)
             else:
-                hppids_test_ppis.write(line+"\n")
-                hppids_test_labels.write("1 0\n")
+                hppids_test_ppis.write(line+os.linesep)
+                hppids_test_labels.write("1 0"+os.linesep)
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1
@@ -68,14 +68,14 @@ def split_data_to_file():
     index = 1
     line = negative_interaction_file.readline()
     while line:
-        line=line.strip('\n')
+        line=line.strip()
         if line:
             if index<=30000:
-                hppids_train_ppis.write(line+"\n")
-                hppids_train_labels.write("0 1\n")
+                hppids_train_ppis.write(line+os.linesep)
+                hppids_train_labels.write("0 1"+os.linesep)
             else:
-                hppids_test_ppis.write(line+"\n")
-                hppids_test_labels.write("0 1\n")
+                hppids_test_ppis.write(line+os.linesep)
+                hppids_test_labels.write("0 1"+os.linesep)
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1

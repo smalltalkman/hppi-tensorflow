@@ -31,15 +31,15 @@ def generate_ct_file(INPUT_FILE, OUTPUT_FILE):
     index = 1
     line = input_file.readline()
     while line:
-        line=line.strip('\n')
+        line=line.strip()
         # print(index, "=", line)
         if line:
             pairs = line.split(',')
             result = numbers_to_str(ac_code_of(pairs[0])+ac_code_of(pairs[1]))
-            output_file.write(result+'\n')
+            output_file.write(result+os.linesep)
         else:
-            output_file.write('\n')
-        # output_file.write(line+'\n')
+            output_file.write(os.linesep)
+        # output_file.write(line+os.linesep)
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1
