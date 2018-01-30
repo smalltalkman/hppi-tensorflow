@@ -36,10 +36,10 @@ def generate_ct_file(INPUT_FILE, OUTPUT_FILE):
         if line:
             pairs = line.split(',')
             result = numbers_to_str(ac_code_of(pairs[0])+ac_code_of(pairs[1]))
-            output_file.write(result+os.linesep)
+            output_file.write(result+'\n')
         else:
-            output_file.write(os.linesep)
-        # output_file.write(line+os.linesep)
+            output_file.write('\n')
+        # output_file.write(line+'\n')
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1

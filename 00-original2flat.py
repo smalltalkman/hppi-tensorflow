@@ -29,7 +29,7 @@ def generate_flat_file(INPUT_FILE, OUTPUT_FILE, shift):
             if (index+shift)%5 == 2:
                 output_line = line + ','
             elif (index+shift)%5 == 4:
-                output_line = output_line + line + os.linesep
+                output_line = output_line + line + '\n'
                 valid = True
                 valid = valid and output_line.find("B")<0
                 valid = valid and output_line.find("J")<0
@@ -43,7 +43,7 @@ def generate_flat_file(INPUT_FILE, OUTPUT_FILE, shift):
                     output_file.write(output_line)
                 else:
                     print("skip index="+str((index+shift)//5))
-                    output_file.write(os.linesep)
+                    output_file.write('\n')
         index = index + 1
         line = input_file.readline()
     input_file.close()
