@@ -26,8 +26,12 @@ class DataFile:
     def row(self, row_start=0, row_count=1):
         with open(self.file, 'rb') as file:
             file.seek(self.data_index(row_start))
-            datas = struct.unpack(self.data_fmt(row_count), file.read(self.data_len(row_count)))
-        return array(datas, dtype=float32).reshape(row_count, self.columns)
+            # datas = struct.unpack(self.data_fmt(row_count), file.read(self.data_len(row_count)))
+            buf = file.read(self.data_len(row_count))
+        # return array(datas, dtype=float32).reshape(row_count, self.columns)
+        data = frombuffer(buf, dtype=float32)
+        data = data.reshape(row_count, self.columns)
+        return data
 
 class DataSet:
     def __init__(self, file_path, datas_file_name, labels_file_name):
