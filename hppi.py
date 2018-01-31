@@ -38,27 +38,51 @@ class DataSet:
         self.file_path = file_path
         self.datas_file_name = datas_file_name
         self.datas_data_file = DataFile(file_path, datas_file_name)
+        self._datas = \
+            self.datas_data_file.row(0, self.datas_data_file.rows)
         self.labels_file_name = labels_file_name
         self.labels_data_file = DataFile(file_path, labels_file_name)
+        self._labels = \
+            self.labels_data_file.row(0, self.labels_data_file.rows)
         if self.datas_data_file.rows > self.labels_data_file.rows:
             self.length = self.labels_data_file.rows
         else:
             self.length = self.datas_data_file.rows
         self.batch_index = 0
+        self._epochs_completed = 0
     @property
     def datas(self):
-        return self.datas_data_file.row(0, self.datas_data_file.rows)
+        return self._datas
     @property
     def labels(self):
-        return self.labels_data_file.row(0, self.labels_data_file.rows)
-    def next_batch(self, length):
-        if self.batch_index + length > self.length:
-            self.batch_index = 0
-        datas = (self. datas_data_file.row(self.batch_index, length),
-                 self.labels_data_file.row(self.batch_index, length),
-                 )
-        self.batch_index = self.batch_index + length
-        return datas
+        return self._labels
+    def next_batch(self, length, shuffle=True):
+        start = self.batch_index
+        if self._epochs_completed == 0 and start == 0 and shuffle:
+            perm0 = arange(self.length)
+            random.shuffle(perm0)
+            self._datas  = self.datas [perm0]
+            self._labels = self.labels[perm0]
+        if start + length > self.length:
+            self._epochs_completed += 1
+            rest_num_datas = self.length - start
+            datas_rest_part  = self._datas [start:self.length]
+            labels_rest_part = self._labels[start:self.length]
+            if shuffle:
+                perm = arange(self.length)
+                random.shuffle(perm)
+                self._datas  = self.datas [perm]
+                self._labels = self.labels[perm]
+            start = 0
+            self.batch_index = length - rest_num_datas
+            end = self.batch_index
+            datas_new_part  = self._datas [start:end]
+            labels_new_part = self._labels[start:end]
+            return concatenate((datas_rest_part, datas_new_part), axis=0) , concatenate((labels_rest_part, labels_new_part), axis=0)
+        else:
+            self.batch_index = self.batch_index + length
+            end = self.batch_index
+            return self._datas[start:end] , self._labels[start:end]
 
 class DataSets:
     def __init__(self, file_path):
