@@ -8,7 +8,7 @@ from __future__ import print_function
 
 # Import HPPI data
 import os, hppi
-hppids = hppi.read_data_sets(os.getcwd()+"/data/09-hppids")
+hppids = hppi.read_data_sets(os.getcwd()+"/data/09-hppids", one_hot=True)
 
 import tensorflow as tf
 
