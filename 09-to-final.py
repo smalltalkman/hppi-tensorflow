@@ -37,10 +37,10 @@ def split_data_to_file(dir):
         if line:
             if index<=30000:
                 hppids_train_ppis.write(line+'\n')
-                hppids_train_labels.write("1 0"+'\n')
+                hppids_train_labels.write("1"+'\n')
             else:
                 hppids_test_ppis.write(line+'\n')
-                hppids_test_labels.write("1 0"+'\n')
+                hppids_test_labels.write("1"+'\n')
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1
@@ -56,10 +56,10 @@ def split_data_to_file(dir):
         if line:
             if index<=30000:
                 hppids_train_ppis.write(line+'\n')
-                hppids_train_labels.write("0 1"+'\n')
+                hppids_train_labels.write("0"+'\n')
             else:
                 hppids_test_ppis.write(line+'\n')
-                hppids_test_labels.write("0 1"+'\n')
+                hppids_test_labels.write("0"+'\n')
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1
@@ -120,9 +120,9 @@ def main():
         print("Processed!")
     split_data_to_file(FDD)
     convert_txt_to_bin(FDD+"/hppids-train-ppis.txt",   FDD+"/hppids-train-ppis.bin",   60000, 1106, float, 'f')
-    convert_txt_to_bin(FDD+"/hppids-train-labels.txt", FDD+"/hppids-train-labels.bin", 60000, 2,    float, 'f')
+    convert_txt_to_bin(FDD+"/hppids-train-labels.txt", FDD+"/hppids-train-labels.bin", 60000, 1,      int, 'i')
     convert_txt_to_bin(FDD+"/hppids-test-ppis.txt",    FDD+"/hppids-test-ppis.bin",    12915, 1106, float, 'f')
-    convert_txt_to_bin(FDD+"/hppids-test-labels.txt",  FDD+"/hppids-test-labels.bin",  12915, 2,    float, 'f')
+    convert_txt_to_bin(FDD+"/hppids-test-labels.txt",  FDD+"/hppids-test-labels.bin",  12915, 1,      int, 'i')
     print("Finished!!!")
 
 if __name__=="__main__":
