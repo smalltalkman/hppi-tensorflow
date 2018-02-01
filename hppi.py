@@ -6,6 +6,13 @@ __all__ = ['read_data_sets']
 import struct
 from numpy import *
 
+def dense_to_one_hot(labels_dense, num_classes):
+    num_labels = labels_dense.shape[0]
+    index_offset = arange(num_labels) * num_classes
+    labels_one_hot = zeros((num_labels, num_classes))
+    labels_one_hot.flat[index_offset + labels_dense.ravel()] = 1
+    return labels_one_hot
+
 class DataFile:
     def __init__(self, file_path, file_name):
         self.file_path = file_path
@@ -23,27 +30,30 @@ class DataFile:
         return self.item_fmt % (row_count * self.columns)
     def data_index(self, index=0):
         return self.head_len + self.data_len(index)
-    def row(self, row_start=0, row_count=1):
+    def row(self, row_start=0, row_count=1, dt=float32, one_hot=False, num_classes=2):
         with open(self.file, 'rb') as file:
             file.seek(self.data_index(row_start))
             # datas = struct.unpack(self.data_fmt(row_count), file.read(self.data_len(row_count)))
             buf = file.read(self.data_len(row_count))
         # return array(datas, dtype=float32).reshape(row_count, self.columns)
-        data = frombuffer(buf, dtype=float32)
-        data = data.reshape(row_count, self.columns)
+        data = frombuffer(buf, dtype=dt)
+        if self.columns>=2:
+            data = data.reshape(row_count, self.columns)
+        elif one_hot:
+            data = dense_to_one_hot(data, num_classes)
         return data
 
 class DataSet:
-    def __init__(self, file_path, datas_file_name, labels_file_name):
+    def __init__(self, file_path, datas_file_name, labels_file_name, one_hot=False, num_classes=2, datas_dt=float32, labels_dt=uint32):
         self.file_path = file_path
         self.datas_file_name = datas_file_name
         self.datas_data_file = DataFile(file_path, datas_file_name)
         self._datas = \
-            self.datas_data_file.row(0, self.datas_data_file.rows)
+            self.datas_data_file.row(0, self.datas_data_file.rows, datas_dt, False)
         self.labels_file_name = labels_file_name
         self.labels_data_file = DataFile(file_path, labels_file_name)
         self._labels = \
-            self.labels_data_file.row(0, self.labels_data_file.rows)
+            self.labels_data_file.row(0, self.labels_data_file.rows, labels_dt, one_hot, num_classes)
         if self.datas_data_file.rows > self.labels_data_file.rows:
             self.length = self.labels_data_file.rows
         else:
@@ -85,10 +95,10 @@ class DataSet:
             return self._datas[start:end] , self._labels[start:end]
 
 class DataSets:
-    def __init__(self, file_path):
+    def __init__(self, file_path, one_hot=False):
         self.file_path = file_path
-        self.train = DataSet(file_path, "hppids-train-ppis.bin", "hppids-train-labels.bin")
-        self.test  = DataSet(file_path, "hppids-test-ppis.bin",  "hppids-test-labels.bin" )
+        self.train = DataSet(file_path, "hppids-train-ppis.bin", "hppids-train-labels.bin", one_hot)
+        self.test  = DataSet(file_path, "hppids-test-ppis.bin",  "hppids-test-labels.bin" , one_hot)
 
-def read_data_sets(file_path):
-    return DataSets(file_path)
+def read_data_sets(file_path, one_hot=False):
+    return DataSets(file_path, one_hot)
