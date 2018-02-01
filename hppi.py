@@ -44,7 +44,7 @@ class DataFile:
         return data
 
 class DataSet:
-    def __init__(self, file_path, datas_file_name, labels_file_name, one_hot=False, num_classes=2, datas_dt=float32, labels_dt=uint32):
+    def __init__(self, file_path, datas_file_name, labels_file_name, one_hot=False, num_classes=2, datas_dt=float32, labels_dt=int32):
         self.file_path = file_path
         self.datas_file_name = datas_file_name
         self.datas_data_file = DataFile(file_path, datas_file_name)
