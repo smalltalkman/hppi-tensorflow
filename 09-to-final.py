@@ -1,21 +1,5 @@
 import os, struct
 
-# Current work directory
-CWD = os.getcwd()
-
-# CT data directory
-CTDD = CWD + "/data/02-ct"
-# AC data directory
-ACDD = CWD + "/data/03-ac"
-# Final data directory
-FDD  = CWD + "/data/09-hppids"
-
-# Files
-FILES = [
-    ("Supp-A-36630-HPRD-positive-interaction.txt", [1, 0]),
-    ("Supp-B-36480-HPRD-negative-interaction.txt", [0, 1]),
-]
-
 def generate_total_data_file(CT_INPUT_FILE, AC_INPUT_FILE, OUTPUT_FILE):
     ct_input_file = open(CT_INPUT_FILE)
     ac_input_file = open(AC_INPUT_FILE)
@@ -38,14 +22,14 @@ def generate_total_data_file(CT_INPUT_FILE, AC_INPUT_FILE, OUTPUT_FILE):
     ac_input_file.close()
     output_file.close()
 
-def split_data_to_file():
-    hppids_train_ppis   = open(CWD+"/data/09-hppids/hppids-train-ppis.txt"  , 'w')
-    hppids_train_labels = open(CWD+"/data/09-hppids/hppids-train-labels.txt", 'w')
-    hppids_test_ppis    = open(CWD+"/data/09-hppids/hppids-test-ppis.txt"   , 'w')
-    hppids_test_labels  = open(CWD+"/data/09-hppids/hppids-test-labels.txt" , 'w')
+def split_data_to_file(dir):
+    hppids_train_ppis   = open(dir+"/hppids-train-ppis.txt"  , 'w')
+    hppids_train_labels = open(dir+"/hppids-train-labels.txt", 'w')
+    hppids_test_ppis    = open(dir+"/hppids-test-ppis.txt"   , 'w')
+    hppids_test_labels  = open(dir+"/hppids-test-labels.txt" , 'w')
 
     print("Split Supp-A-36630-HPRD-positive-interaction.txt ...")
-    positive_interaction_file = open(CWD+"/data/09-hppids/Supp-A-36630-HPRD-positive-interaction.txt")
+    positive_interaction_file = open(dir+"/Supp-A-36630-HPRD-positive-interaction.txt")
     index = 1
     line = positive_interaction_file.readline()
     while line:
@@ -64,7 +48,7 @@ def split_data_to_file():
     positive_interaction_file.close()
 
     print("Split Supp-B-36480-HPRD-negative-interaction.txt ...")
-    negative_interaction_file = open(CWD+"/data/09-hppids/Supp-B-36480-HPRD-negative-interaction.txt")
+    negative_interaction_file = open(dir+"/Supp-B-36480-HPRD-negative-interaction.txt")
     index = 1
     line = negative_interaction_file.readline()
     while line:
@@ -87,7 +71,7 @@ def split_data_to_file():
     hppids_test_ppis.close()
     hppids_test_labels.close()
 
-def convert_txt_to_bin(txt_file_name, bin_file_name, rows, columns):
+def convert_txt_to_bin(txt_file_name, bin_file_name, rows, columns, type, fmt):
     print("Convert "+txt_file_name+" to "+bin_file_name+" ...")
     txt_file = open(txt_file_name)
     bin_file = open(bin_file_name, 'wb')
@@ -100,9 +84,9 @@ def convert_txt_to_bin(txt_file_name, bin_file_name, rows, columns):
         line=line.strip()
         if line:
             strs = line.split(" ")
-            floats = [float(s) for s in strs]
-            for f in floats:
-                bytes = struct.pack('f',f)
+            datas = [type(s) for s in strs]
+            for data in datas:
+                bytes = struct.pack(fmt,data)
                 bin_file.write(bytes)
                 bytes_len = bytes_len + len(bytes)
         if index%1000 == 0:
@@ -114,15 +98,31 @@ def convert_txt_to_bin(txt_file_name, bin_file_name, rows, columns):
     bin_file.close()
 
 def main():
+    # Current work directory
+    CWD = os.getcwd()
+
+    # CT data directory
+    CTDD = CWD + "/data/02-ct"
+    # AC data directory
+    ACDD = CWD + "/data/03-ac"
+    # Final data directory
+    FDD  = CWD + "/data/09-hppids"
+
+    # Files
+    FILES = [
+        ("Supp-A-36630-HPRD-positive-interaction.txt", [1, 0]),
+        ("Supp-B-36480-HPRD-negative-interaction.txt", [0, 1]),
+    ]
+
     for FILE, _ in FILES:
         print("Processing "+FILE+" ...")
         generate_total_data_file(CTDD+"/"+FILE, ACDD+"/"+FILE, FDD+"/"+FILE)
         print("Processed!")
-    split_data_to_file()
-    convert_txt_to_bin(CWD+"/data/09-hppids/hppids-train-ppis.txt",   CWD+"/data/09-hppids/hppids-train-ppis.bin",   60000, 1106)
-    convert_txt_to_bin(CWD+"/data/09-hppids/hppids-train-labels.txt", CWD+"/data/09-hppids/hppids-train-labels.bin", 60000, 2)
-    convert_txt_to_bin(CWD+"/data/09-hppids/hppids-test-ppis.txt",    CWD+"/data/09-hppids/hppids-test-ppis.bin",    12915, 1106)
-    convert_txt_to_bin(CWD+"/data/09-hppids/hppids-test-labels.txt",  CWD+"/data/09-hppids/hppids-test-labels.bin",  12915, 2)
+    split_data_to_file(FDD)
+    convert_txt_to_bin(FDD+"/hppids-train-ppis.txt",   FDD+"/hppids-train-ppis.bin",   60000, 1106, float, 'f')
+    convert_txt_to_bin(FDD+"/hppids-train-labels.txt", FDD+"/hppids-train-labels.bin", 60000, 2,    float, 'f')
+    convert_txt_to_bin(FDD+"/hppids-test-ppis.txt",    FDD+"/hppids-test-ppis.bin",    12915, 1106, float, 'f')
+    convert_txt_to_bin(FDD+"/hppids-test-labels.txt",  FDD+"/hppids-test-labels.bin",  12915, 2,    float, 'f')
     print("Finished!!!")
 
 if __name__=="__main__":
