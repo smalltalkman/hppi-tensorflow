@@ -18,6 +18,12 @@ hppids = hppi.read_data_sets(os.getcwd()+"/data/09-hppids", one_hot=False)
 
 import tensorflow as tf
 
+# Parameters
+learning_rate = 0.1
+num_steps = 1000
+batch_size = 128
+display_step = 100
+
 # Network Parameters
 n_hidden_1 = 256 # 1st layer number of neurons
 n_hidden_2 = 256 # 2nd layer number of neurons
@@ -54,7 +60,7 @@ def model_fn(features, labels, mode):
         # Define loss and optimizer
     loss_op = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(
         logits=logits, labels=tf.cast(labels, dtype=tf.int32)))
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.1)
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
     train_op = optimizer.minimize(loss_op,
                                   global_step=tf.train.get_global_step())
 
@@ -78,15 +84,15 @@ model = tf.estimator.Estimator(model_fn)
 # Define the input function for training
 input_fn = tf.estimator.inputs.numpy_input_fn(
     x={'datas': hppids.train.datas}, y=hppids.train.labels,
-    batch_size=128, num_epochs=None, shuffle=True, queue_capacity=60000)
+    batch_size=batch_size, num_epochs=None, shuffle=True, queue_capacity=60000)
 # Train the Model
-model.train(input_fn, steps=1000)
+model.train(input_fn, steps=num_steps)
 
 # Evaluate the Model
 # Define the input function for evaluating
 input_fn = tf.estimator.inputs.numpy_input_fn(
     x={'datas': hppids.test.datas}, y=hppids.test.labels,
-    batch_size=128, shuffle=False)
+    batch_size=batch_size, shuffle=False)
 # Use the Estimator 'evaluate' method
 e = model.evaluate(input_fn)
 
