@@ -19,8 +19,8 @@ hppids = hppi.read_data_sets(os.getcwd()+"/data/09-hppids", one_hot=False)
 import tensorflow as tf
 
 # Parameters
-learning_rate = 0.1
-num_steps = 1000
+learning_rate = 0.01
+num_steps = 10000
 batch_size = 128
 display_step = 100
 
@@ -60,7 +60,7 @@ def model_fn(features, labels, mode):
         # Define loss and optimizer
     loss_op = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(
         logits=logits, labels=tf.cast(labels, dtype=tf.int32)))
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
+    optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
     train_op = optimizer.minimize(loss_op,
                                   global_step=tf.train.get_global_step())
 
