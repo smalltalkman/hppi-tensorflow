@@ -15,8 +15,11 @@ def main():
 
   # Build 3 layer DNN with 10, 20, 10 units respectively.
   classifier = tf.estimator.DNNClassifier(feature_columns=feature_columns,
+                                          # input_layer_partitioner=None,
                                           hidden_units=[10, 20, 10],
+                                          # activation_fn=tf.nn.relu,
                                           n_classes=2,
+                                          # optimizer='Adagrad',
                                           model_dir="/tmp/hppi_model")
   # Define the training inputs
   train_input_fn = tf.estimator.inputs.numpy_input_fn(
