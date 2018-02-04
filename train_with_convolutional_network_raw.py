@@ -15,7 +15,7 @@ import os, hppi
 hppids = hppi.read_data_sets(os.getcwd()+"/data/09-hppids", one_hot=True)
 
 # Training Parameters
-learning_rate = 0.01
+learning_rate = 0.001
 num_steps = 200
 batch_size = 128
 display_step = 10
