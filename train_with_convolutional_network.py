@@ -24,7 +24,7 @@ batch_size = 128
 # Network Parameters
 num_input = 1106 # HPPI data input
 num_classes = 2 # HPPI total classes
-dropout = 0.75 # Dropout, probability to keep units
+dropout = 0.25 # Dropout, probability to keep units
 
 
 # Create the neural network
