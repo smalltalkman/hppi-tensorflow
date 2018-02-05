@@ -5,6 +5,7 @@ from __future__ import print_function
 import os, hppi
 
 import tensorflow as tf
+tf.logging.set_verbosity(tf.logging.INFO)
 
 def main():
   # Load datasets.

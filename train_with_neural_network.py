@@ -17,6 +17,7 @@ import os, hppi
 hppids = hppi.read_data_sets(os.getcwd()+"/data/09-hppids", one_hot=False)
 
 import tensorflow as tf
+tf.logging.set_verbosity(tf.logging.INFO)
 
 # Parameters
 learning_rate = 0.01
