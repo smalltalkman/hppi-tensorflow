@@ -39,12 +39,12 @@ def ct_code_of(PS):
         SubCS = CS[I:I+3]
         CT_Code_Index = int(SubCS[0]) + (int(SubCS[1])-1)*7 + (int(SubCS[2])-1)*7*7
         CT_Code[CT_Code_Index-1] = CT_Code[CT_Code_Index-1] + 1
+    SUM = sum(CT_Code)
+    CT_Code = [N*1.0/SUM for N in CT_Code]
     # Normalizing CT_Code
-    # SUM = sum(CT_Code)
-    # CT_Code = [N*1.0/SUM for N in CT_Code]
-    MIN_CODE = min(CT_Code)
-    MAX_CODE = max(CT_Code)
-    CT_Code = [(N-MIN_CODE)*1.0/MAX_CODE for N in CT_Code]
+    # MIN_CODE = min(CT_Code)
+    # MAX_CODE = max(CT_Code)
+    # CT_Code = [(N-MIN_CODE)*1.0/(MAX_CODE-MIN_CODE) for N in CT_Code]
     return CT_Code
 
 if __name__=="__main__":

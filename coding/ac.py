@@ -95,7 +95,12 @@ def all_ac_values_of(PS, LAG):
 
 def ac_code_of(PS):
     """Get ac code of protein sequence."""
-    return all_ac_values_of(PS, 30)
+    AC_Code = all_ac_values_of(PS, 30)
+    # Normalizing AC_Code
+    # MIN_CODE = min(AC_Code)
+    # MAX_CODE = max(AC_Code)
+    # AC_Code = [(N-MIN_CODE)*1.0/(MAX_CODE-MIN_CODE) for N in AC_Code]
+    return AC_Code
 
 if __name__=="__main__":
     AC = ac_code_of('MKFVYKEEHPFEKRRSEGEKIRKKYPDRVPVIVEKAPKARIGDLDKKKYLVPSDLTVGQFYFLIRKRIHLRAEDALFFFVNNVIPPTSATMGQLYQEHHEEDFFLYIAYSDESVYGL')
