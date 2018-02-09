@@ -80,7 +80,8 @@ def model_fn(features, labels, mode):
     return estim_specs
 
 # Build the Estimator
-model = tf.estimator.Estimator(model_fn)
+model = tf.estimator.Estimator(model_fn,
+                               model_dir=os.getcwd()+"/model/train_with_neural_network")
 
 # Define the input function for training
 input_fn = tf.estimator.inputs.numpy_input_fn(
@@ -93,7 +94,7 @@ model.train(input_fn, steps=num_steps)
 # Define the input function for evaluating
 input_fn = tf.estimator.inputs.numpy_input_fn(
     x={'datas': hppids.test.datas}, y=hppids.test.labels,
-    batch_size=batch_size, shuffle=False)
+    batch_size=batch_size, num_epochs=1, shuffle=False)
 # Use the Estimator 'evaluate' method
 e = model.evaluate(input_fn)
 
