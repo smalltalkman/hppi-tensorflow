@@ -12,7 +12,7 @@ learning_rate = 0.01 # 0.01 => 0.001 => 0.0001
 num_steps = 10000
 
 # Network Parameters
-num_input = 343 # HPPI data input
+num_input = 686 # HPPI data input
 num_classes = 2 # HPPI total classes
 
 def main():
