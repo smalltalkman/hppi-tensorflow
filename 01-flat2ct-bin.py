@@ -107,9 +107,9 @@ def main():
         exclude_empty_line(CTDD+"/"+FILE, CTBDD+"/"+FILE)
         print("Processed!")
     split_data_to_file(CTBDD)
-    convert_txt_to_bin(CTBDD+"/hppids-train-ppis.txt",   CTBDD+"/hppids-train-ppis.bin",   60000, 343, float, 'f')
+    convert_txt_to_bin(CTBDD+"/hppids-train-ppis.txt",   CTBDD+"/hppids-train-ppis.bin",   60000, 686, float, 'f')
     convert_txt_to_bin(CTBDD+"/hppids-train-labels.txt", CTBDD+"/hppids-train-labels.bin", 60000, 1,     int, 'i')
-    convert_txt_to_bin(CTBDD+"/hppids-test-ppis.txt",    CTBDD+"/hppids-test-ppis.bin",    12915, 343, float, 'f')
+    convert_txt_to_bin(CTBDD+"/hppids-test-ppis.txt",    CTBDD+"/hppids-test-ppis.bin",    12915, 686, float, 'f')
     convert_txt_to_bin(CTBDD+"/hppids-test-labels.txt",  CTBDD+"/hppids-test-labels.bin",  12915, 1,     int, 'i')
     print("Finished!!!")
 
