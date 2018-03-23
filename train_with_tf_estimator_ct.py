@@ -18,6 +18,9 @@ num_classes = 2 # HPPI total classes
 cwd = os.getcwd()
 data_sets_dir = cwd+"/data/02-ct-bin"
 model_dir = cwd+"/model/train_with_tf_estimator_ct"
+result_file = cwd+"/model/train_with_tf_estimator_ct_256x256x256_relu_adam"+"_{0:g}".format(learning_rate)+".txt"
+
+times = 1
 
 def main():
   # Load datasets.
@@ -55,9 +58,25 @@ def main():
       shuffle=False)
 
   # Evaluate accuracy.
-  accuracy_score = classifier.evaluate(input_fn=test_input_fn)["accuracy"]
+  #accuracy_score = classifier.evaluate(input_fn=test_input_fn)["accuracy"]
+  # Evaluate scores.
+  scores = classifier.evaluate(input_fn=test_input_fn)
+  scores_str =   "global_step = {0:08d}".format(scores["global_step"]) \
+             + ", accuracy = {0:8g}".format(scores["accuracy"]) \
+             + ", accuracy_baseline = {0:8g}".format(scores["accuracy_baseline"]) \
+             + ", auc = {0:8g}".format(scores["auc"]) \
+             + ", auc_precision_recall = {0:8g}".format(scores["auc_precision_recall"]) \
+             + ", average_loss = {0:8g}".format(scores["average_loss"]) \
+             + ", label/mean = {0:8g}".format(scores["label/mean"]) \
+             + ", loss = {0:8g}".format(scores["loss"]) \
+             + ", prediction/mean = {0:8g}".format(scores["prediction/mean"]) \
 
-  print("\nTest Accuracy: {0:f}\n".format(accuracy_score))
+  #print("\nTest Accuracy: {0:f}\n".format(accuracy_score))
+  print("\nTest scores: {0}\n".format(scores_str))
+
+  with open(result_file, "a") as file:
+    file.write(scores_str+"\n")
 
 if __name__ == "__main__":
+  for _ in range(times):
     main()
