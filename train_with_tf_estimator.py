@@ -15,9 +15,13 @@ num_steps = 10000
 num_input = 1106 # HPPI data input
 num_classes =  2 # HPPI total classes
 
+cwd = os.getcwd()
+data_sets_dir = cwd+"/data/09-hppids"
+model_dir = cwd+"/model/train_with_tf_estimator"
+
 def main():
   # Load datasets.
-  hppids = hppi.read_data_sets(os.getcwd()+"/data/09-hppids", one_hot=False)
+  hppids = hppi.read_data_sets(data_sets_dir, one_hot=False)
 
   # Specify that all features have real-value data
   feature_columns = [tf.feature_column.numeric_column("x", shape=[num_input])]
@@ -31,14 +35,14 @@ def main():
                                           n_classes=num_classes,
                                           # optimizer='Adagrad',
                                           optimizer=tf.train.AdamOptimizer(learning_rate=learning_rate),
-                                          model_dir=os.getcwd()+"/model/train_with_tf_estimator")
+                                          model_dir=model_dir)
   # Define the training inputs
   train_input_fn = tf.estimator.inputs.numpy_input_fn(
       x={"x": hppids.train.datas},
       y=hppids.train.labels,
       num_epochs=None,
       shuffle=True,
-      queue_capacity=60000)
+      queue_capacity=hppids.train.length)
 
   # Train model.
   classifier.train(input_fn=train_input_fn, steps=num_steps)
