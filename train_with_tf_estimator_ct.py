@@ -17,8 +17,9 @@ num_classes = 2 # HPPI total classes
 
 cwd = os.getcwd()
 data_sets_dir = cwd+"/data/02-ct-bin"
-model_dir = cwd+"/model/train_with_tf_estimator_ct"
-result_file = cwd+"/model/result_of_tf_estimator_ct_256x256x256_relu_adam"+"_{0:g}".format(learning_rate)+".txt"
+model_info = "_ct[{0:d}x{1:d}]_256x256x256_relu_adam_{2:g}".format(num_input, num_classes, learning_rate)
+model_dir = cwd+"/model/train_with_tf_estimator"+model_info
+result_file = cwd+"/model/result_of_tf_estimator"+model_info+".txt"
 
 times = 1
 
