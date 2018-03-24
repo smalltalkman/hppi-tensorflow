@@ -39,7 +39,7 @@ def once(data_sets_dir, data_sets_info
                                           activation_fn=activation_fn,
                                           n_classes=num_classes,
                                           # optimizer='Adagrad',
-                                          optimizer=optimizer(learning_rate=learning_rate)),
+                                          optimizer=optimizer(learning_rate=learning_rate),
                                           model_dir=model_dir)
   # Define the training inputs
   train_input_fn = tf.estimator.inputs.numpy_input_fn(
