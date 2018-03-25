@@ -13,7 +13,7 @@ def once(data_sets_dir, data_sets_info
        , model_dir_root
        , result_dir_root
        ):
-  model_info = "_{0}[{1:d}x{2:d}]_{3}_{4}_{5:g}".format(
+  model_info = "_{0}({1:d}x{2:d})_{3}_{4}_{5:g}".format(
                  data_sets_info
                , num_input
                , num_classes
