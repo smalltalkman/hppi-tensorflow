@@ -3,6 +3,7 @@ sys.path.append(os.getcwd())
 from coding import *
 
 def generate_flat_file(A_FILE, B_FILE, OUTPUT_FILE):
+    lines = 0
     a_file      = open(A_FILE)
     b_file      = open(B_FILE)
     output_file = open(OUTPUT_FILE, 'w')
@@ -25,6 +26,7 @@ def generate_flat_file(A_FILE, B_FILE, OUTPUT_FILE):
                 valid = valid and output_line.find("Z")<0
                 if valid:
                     output_file.write(output_line)
+                    lines = lines + 1
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1
@@ -34,11 +36,13 @@ def generate_flat_file(A_FILE, B_FILE, OUTPUT_FILE):
     a_file.close()
     b_file.close()
     output_file.close()
+    return lines
 
 def numbers_to_str(NUMBERS):
     return ' '.join([str(NUMBER) for NUMBER in NUMBERS])
 
 def generate_ct_file(INPUT_FILE, OUTPUT_FILE):
+    lines = 0
     input_file  = open(INPUT_FILE)
     output_file = open(OUTPUT_FILE, 'w')
     print("Generating {0} ...".format(OUTPUT_FILE))
@@ -50,6 +54,7 @@ def generate_ct_file(INPUT_FILE, OUTPUT_FILE):
             pairs = line.split(',')
             result = numbers_to_str(ct_code_of(pairs[0])+ct_code_of(pairs[1]))
             output_file.write(result+'\n')
+            lines = lines + 1
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1
@@ -57,8 +62,10 @@ def generate_ct_file(INPUT_FILE, OUTPUT_FILE):
     print("Generated {0} !".format(OUTPUT_FILE))
     input_file.close()
     output_file.close()
+    return lines
 
 def generate_ac_file(INPUT_FILE, OUTPUT_FILE):
+    lines = 0
     input_file  = open(INPUT_FILE)
     output_file = open(OUTPUT_FILE, 'w')
     print("Generating {0} ...".format(OUTPUT_FILE))
@@ -70,6 +77,7 @@ def generate_ac_file(INPUT_FILE, OUTPUT_FILE):
             pairs = line.split(',')
             result = numbers_to_str(ac_code_of(pairs[0])+ac_code_of(pairs[1]))
             output_file.write(result+'\n')
+            lines = lines + 1
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1
@@ -77,8 +85,10 @@ def generate_ac_file(INPUT_FILE, OUTPUT_FILE):
     print("Generated {0} !".format(OUTPUT_FILE))
     input_file.close()
     output_file.close()
+    return lines
 
 def concat_data_to_file(A_INPUT_FILE, B_INPUT_FILE, OUTPUT_FILE):
+    lines = 0
     a_input_file = open(A_INPUT_FILE)
     b_input_file = open(B_INPUT_FILE)
     output_file  = open(OUTPUT_FILE, 'w')
@@ -92,6 +102,7 @@ def concat_data_to_file(A_INPUT_FILE, B_INPUT_FILE, OUTPUT_FILE):
         if a_line and b_line:
             output_line = a_line + " " + b_line + '\n'
             output_file.write(output_line)
+            lines = lines + 1
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1
@@ -101,9 +112,13 @@ def concat_data_to_file(A_INPUT_FILE, B_INPUT_FILE, OUTPUT_FILE):
     a_input_file.close()
     b_input_file.close()
     output_file.close()
+    return lines
 
 def split_data_to_file(dir, pos_file_name, pos_label, pos_max_train_index
                           , neg_file_name, neg_label, neg_max_train_index):
+    train_lines = 0
+    test_lines  = 0
+
     hppids_train_ppis   = open(dir+"/hppids-train-ppis.txt"  , 'w')
     hppids_train_labels = open(dir+"/hppids-train-labels.txt", 'w')
     hppids_test_ppis    = open(dir+"/hppids-test-ppis.txt"   , 'w')
@@ -120,9 +135,11 @@ def split_data_to_file(dir, pos_file_name, pos_label, pos_max_train_index
             if index<=pos_max_train_index:
                 hppids_train_ppis.write(line+'\n')
                 hppids_train_labels.write(pos_label+'\n')
+                train_lines = train_lines + 1
             else:
                 hppids_test_ppis.write(line+'\n')
                 hppids_test_labels.write(pos_label+'\n')
+                test_lines = test_lines + 1
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1
@@ -140,9 +157,11 @@ def split_data_to_file(dir, pos_file_name, pos_label, pos_max_train_index
             if index<=neg_max_train_index:
                 hppids_train_ppis.write(line+'\n')
                 hppids_train_labels.write(neg_label+'\n')
+                train_lines = train_lines + 1
             else:
                 hppids_test_ppis.write(line+'\n')
                 hppids_test_labels.write(neg_label+'\n')
+                test_lines = test_lines + 1
         if index%1000 == 0:
             print("finish index==" + str(index//1000))
         index = index + 1
@@ -153,6 +172,8 @@ def split_data_to_file(dir, pos_file_name, pos_label, pos_max_train_index
     hppids_train_labels.close()
     hppids_test_ppis.close()
     hppids_test_labels.close()
+
+    return (train_lines, test_lines)
 
 def convert_txt_to_bin(txt_file_name, bin_file_name, rows, columns, type, fmt):
     txt_file = open(txt_file_name)
@@ -193,13 +214,13 @@ def convert_all_txt_to_bin(dir
 
 def main():
     cwd = os.getcwd()
-    infos = [("/data/predict_PPI/C.elegan", 3000, 1030)
-            ,("/data/predict_PPI/Drosophila", 16000, 5975)
-            ,("/data/predict_PPI/E.coli", 5000, 1954)
-            ,("/data/predict_PPI/Human", 27000, 10027)
-            ,("/data/predict_PPI/Yeast", 4000, 1943)
+    infos = [("/data/predict_PPI/C.elegan", 3000)
+            ,("/data/predict_PPI/Drosophila", 16000)
+            ,("/data/predict_PPI/E.coli", 5000)
+            ,("/data/predict_PPI/Human", 27000)
+            ,("/data/predict_PPI/Yeast", 4000)
             ]
-    for dir, max_train_index, max_test_index in infos:
+    for dir, max_train_index in infos:
         source_dir = cwd+dir
         # flat
         target_dir = source_dir+"/bin"
@@ -219,24 +240,24 @@ def main():
             os.makedirs(ct_dir)
         generate_ct_file(target_dir+"/Negative_protein.txt", ct_dir+"/Negative_protein.txt")
         generate_ct_file(target_dir+"/Positive_protein.txt", ct_dir+"/Positive_protein.txt")
-        split_data_to_file(ct_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
-        convert_all_txt_to_bin(ct_dir, 2*max_train_index, 2*max_test_index, 686, 1, float, int, 'f', 'i')
+        train_lines, test_lines = split_data_to_file(ct_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
+        convert_all_txt_to_bin(ct_dir, train_lines, test_lines, 686, 1, float, int, 'f', 'i')
         # ac
         ac_dir = target_dir+"/ac"
         if not os.path.exists(ac_dir):
             os.makedirs(ac_dir)
         generate_ac_file(target_dir+"/Negative_protein.txt", ac_dir+"/Negative_protein.txt")
         generate_ac_file(target_dir+"/Positive_protein.txt", ac_dir+"/Positive_protein.txt")
-        split_data_to_file(ac_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
-        convert_all_txt_to_bin(ac_dir, 2*max_train_index, 2*max_test_index, 420, 1, float, int, 'f', 'i')
+        train_lines, test_lines = split_data_to_file(ac_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
+        convert_all_txt_to_bin(ac_dir, train_lines, test_lines, 420, 1, float, int, 'f', 'i')
         # ct+ac
         ct_ac_dir = target_dir+"/ct+ac"
         if not os.path.exists(ct_ac_dir):
             os.makedirs(ct_ac_dir)
         concat_data_to_file(ct_dir+"/Negative_protein.txt", ac_dir+"/Negative_protein.txt", ct_ac_dir+"/Negative_protein.txt")
         concat_data_to_file(ct_dir+"/Positive_protein.txt", ac_dir+"/Positive_protein.txt", ct_ac_dir+"/Positive_protein.txt")
-        split_data_to_file(ct_ac_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
-        convert_all_txt_to_bin(ct_ac_dir, 2*max_train_index, 2*max_test_index, 1106, 1, float, int, 'f', 'i')
+        train_lines, test_lines = split_data_to_file(ct_ac_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
+        convert_all_txt_to_bin(ct_ac_dir, train_lines, test_lines, 1106, 1, float, int, 'f', 'i')
 
 if __name__=="__main__":
     main()
