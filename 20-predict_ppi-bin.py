@@ -214,11 +214,11 @@ def convert_all_txt_to_bin(dir
 
 def main():
     cwd = os.getcwd()
-    infos = [("/data/predict_PPI/C.elegan", 3000)
-            ,("/data/predict_PPI/Drosophila", 16000)
-            ,("/data/predict_PPI/E.coli", 5000)
-            ,("/data/predict_PPI/Human", 27000)
-            ,("/data/predict_PPI/Yeast", 4000)
+    infos = [("/data/predict_PPI/C.elegan", 3627)
+            ,("/data/predict_PPI/Drosophila", 19777)
+            ,("/data/predict_PPI/E.coli", 6258)
+            ,("/data/predict_PPI/Human", 33318)
+            ,("/data/predict_PPI/Yeast", 5348)
             ]
     for dir, max_train_index in infos:
         source_dir = cwd+dir
