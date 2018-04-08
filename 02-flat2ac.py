@@ -25,7 +25,7 @@ FILES = [
 def numbers_to_str(NUMBERS):
     return ' '.join([str(NUMBER) for NUMBER in NUMBERS])
 
-def generate_ct_file(INPUT_FILE, OUTPUT_FILE):
+def generate_ac_file(INPUT_FILE, OUTPUT_FILE):
     input_file = open(INPUT_FILE)
     output_file = open(OUTPUT_FILE, 'w')
     index = 1
@@ -50,6 +50,6 @@ def generate_ct_file(INPUT_FILE, OUTPUT_FILE):
 if __name__=="__main__":
     for FILE in FILES:
         print("Processing "+FILE+" ...")
-        generate_ct_file(FDD+"/"+FILE, ACDD+"/"+FILE)
+        generate_ac_file(FDD+"/"+FILE, ACDD+"/"+FILE)
         print("Processed!")
     print("Finished!!!")
