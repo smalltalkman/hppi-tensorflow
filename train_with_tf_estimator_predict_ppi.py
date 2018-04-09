@@ -26,6 +26,7 @@ def once(data_sets_dir, data_sets_info
 
   # Load datasets.
   hppids = hppi.read_data_sets(data_sets_dir, one_hot=False)
+  hppids.shuffle().split(apply=True)
 
   # Specify that all features have real-value data
   feature_columns = [tf.feature_column.numeric_column("x", shape=[num_input])]
