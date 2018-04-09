@@ -99,6 +99,26 @@ class DataSets:
         self.file_path = file_path
         self.train = DataSet(file_path, "hppids-train-ppis.bin", "hppids-train-labels.bin", one_hot)
         self.test  = DataSet(file_path, "hppids-test-ppis.bin",  "hppids-test-labels.bin" , one_hot)
+        self._datas  = concatenate((self.train.datas,  self.test.datas ), axis=0)
+        self._labels = concatenate((self.train.labels, self.test.labels), axis=0)
+        self._datas_length  = self._datas.shape[0]
+        self._labels_length = self._labels.shape[0]
+        if self._datas_length > self._labels_length:
+            self.length = self._labels_length
+        else:
+            self.length = self._datas_length
+    @property
+    def datas(self):
+        return self._datas
+    @property
+    def labels(self):
+        return self._labels
+    def shuffle(self):
+        perm = arange(self.length)
+        random.shuffle(perm)
+        self._datas  = self.datas [perm]
+        self._labels = self.labels[perm]
+        return self
 
 def read_data_sets(file_path, one_hot=False):
     return DataSets(file_path, one_hot)
