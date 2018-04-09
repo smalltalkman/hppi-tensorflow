@@ -119,6 +119,23 @@ class DataSets:
         self._datas  = self.datas [perm]
         self._labels = self.labels[perm]
         return self
+    def split(self, apply=False):
+        train_length = self.train.length
+        
+        train_datas  = self._datas [:train_length]
+        train_labels = self._labels[:train_length]
+        test_datas  = self._datas [train_length:]
+        test_labels = self._labels[train_length:]
+        
+        if(apply):
+            self.train.length  = train_length
+            self.train._datas  = train_datas
+            self.train._labels = train_labels
+            self.test.length  = self.length - train_length
+            self.test._datas  = test_datas
+            self.test._labels = test_labels
+        
+        return train_datas, train_labels, test_datas, test_labels
 
 def read_data_sets(file_path, one_hot=False):
     return DataSets(file_path, one_hot)
