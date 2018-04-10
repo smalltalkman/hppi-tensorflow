@@ -7,6 +7,18 @@ import os, hppi
 import tensorflow as tf
 tf.logging.set_verbosity(tf.logging.INFO)
 
+def train(datas, labels, length, classifier, num_steps):
+  # Define the training inputs
+  train_input_fn = tf.estimator.inputs.numpy_input_fn(
+      x={"x": datas},
+      y=labels,
+      num_epochs=None,
+      shuffle=True,
+      queue_capacity=length)
+
+  # Train model.
+  classifier.train(input_fn=train_input_fn, steps=num_steps)
+
 def once(data_sets_dir, data_sets_info
        , num_input, hidden_units, activation_fn, num_classes, optimizer, learning_rate, dnn_info
        , num_steps
