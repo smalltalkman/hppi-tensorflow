@@ -93,6 +93,21 @@ class DataSet:
             self.batch_index = self.batch_index + length
             end = self.batch_index
             return self._datas[start:end] , self._labels[start:end]
+    def shuffle(self):
+        perm = arange(self.length)
+        random.shuffle(perm)
+        self._datas  = self.datas [perm]
+        self._labels = self.labels[perm]
+        return self
+    def split(self, ratio=0.75):
+        train_length = int(self.length*ratio)
+        
+        train_datas  = self._datas [:train_length]
+        train_labels = self._labels[:train_length]
+        validation_datas  = self._datas [train_length:]
+        validation_labels = self._labels[train_length:]
+        
+        return train_datas, train_labels, validation_datas, validation_labels
 
 class DataSets:
     def __init__(self, file_path, one_hot=False):
