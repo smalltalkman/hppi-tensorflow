@@ -1,6 +1,7 @@
 import sys, os, struct
 sys.path.append(os.getcwd())
 from coding import *
+from numpy import *
 
 def generate_flat_file(A_FILE, B_FILE, OUTPUT_FILE):
     lines = 0
@@ -175,6 +176,37 @@ def split_data_to_file(dir, pos_file_name, pos_label, pos_max_train_index
 
     return (train_lines, test_lines)
 
+def shuffle(dir):
+    train_datas  = loadtxt(dir+"/hppids-train-ppis.txt")
+    train_labels = loadtxt(dir+"/hppids-train-labels.txt")
+    test_datas   = loadtxt(dir+"/hppids-test-ppis.txt")
+    test_labels  = loadtxt(dir+"/hppids-test-labels.txt")
+    
+    datas  = concatenate((train_datas,  test_datas),  axis=0)
+    labels = concatenate((train_labels, test_labels), axis=0)
+    
+    datas_len  = datas.shape[0]
+    labels_len = labels.shape[0]
+    if datas_len>labels_len:
+        len = labels_len
+    else:
+        len = datas_len
+    perm = arange(len)
+    random.shuffle(perm)
+    
+    datas  = datas[perm]
+    labels = labels[perm]
+    
+    train_datas  = datas[:datas_len]
+    train_labels = labels[:datas_len]
+    test_datas   = datas[datas_len:]
+    test_labels  = labels[datas_len:]
+    
+    savetxt(dir+"/hppids-train-ppis.txt",   train_datas)
+    savetxt(dir+"/hppids-train-labels.txt", train_labels)
+    savetxt(dir+"/hppids-test-ppis.txt",    test_datas)
+    savetxt(dir+"/hppids-test-labels.txt",  test_labels)
+
 def convert_txt_to_bin(txt_file_name, bin_file_name, rows, columns, type, fmt):
     txt_file = open(txt_file_name)
     bin_file = open(bin_file_name, 'wb')
@@ -241,6 +273,7 @@ def main():
         generate_ct_file(target_dir+"/Negative_protein.txt", ct_dir+"/Negative_protein.txt")
         generate_ct_file(target_dir+"/Positive_protein.txt", ct_dir+"/Positive_protein.txt")
         train_lines, test_lines = split_data_to_file(ct_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
+        shuffle(ct_dir)
         convert_all_txt_to_bin(ct_dir, train_lines, test_lines, 686, 1, float, int, 'f', 'i')
         # ac
         ac_dir = target_dir+"/ac"
@@ -249,6 +282,7 @@ def main():
         generate_ac_file(target_dir+"/Negative_protein.txt", ac_dir+"/Negative_protein.txt")
         generate_ac_file(target_dir+"/Positive_protein.txt", ac_dir+"/Positive_protein.txt")
         train_lines, test_lines = split_data_to_file(ac_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
+        shuffle(ac_dir)
         convert_all_txt_to_bin(ac_dir, train_lines, test_lines, 420, 1, float, int, 'f', 'i')
         # ct+ac
         ct_ac_dir = target_dir+"/ct+ac"
@@ -257,6 +291,7 @@ def main():
         concat_data_to_file(ct_dir+"/Negative_protein.txt", ac_dir+"/Negative_protein.txt", ct_ac_dir+"/Negative_protein.txt")
         concat_data_to_file(ct_dir+"/Positive_protein.txt", ac_dir+"/Positive_protein.txt", ct_ac_dir+"/Positive_protein.txt")
         train_lines, test_lines = split_data_to_file(ct_ac_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
+        shuffle(ct_ac_dir)
         convert_all_txt_to_bin(ct_ac_dir, train_lines, test_lines, 1106, 1, float, int, 'f', 'i')
 
 if __name__=="__main__":
