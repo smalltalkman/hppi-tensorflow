@@ -101,13 +101,14 @@ class DataSet:
         return self
     def split(self, ratio=0.75):
         train_length = int(self.length*ratio)
+        validation_length = self.length-train_length
         
         train_datas  = self._datas [:train_length]
         train_labels = self._labels[:train_length]
         validation_datas  = self._datas [train_length:]
         validation_labels = self._labels[train_length:]
         
-        return train_datas, train_labels, validation_datas, validation_labels
+        return train_length, train_datas, train_labels, validation_length, validation_datas, validation_labels
 
 class DataSets:
     def __init__(self, file_path, one_hot=False):
