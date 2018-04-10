@@ -178,34 +178,31 @@ def split_data_to_file(dir, pos_file_name, pos_label, pos_max_train_index
 
 def shuffle(dir):
     train_datas  = loadtxt(dir+"/hppids-train-ppis.txt")
-    train_labels = loadtxt(dir+"/hppids-train-labels.txt")
+    train_labels = loadtxt(dir+"/hppids-train-labels.txt", dtype=int)
+    train_len    = min(train_datas.shape[0], train_labels.shape[0])
     test_datas   = loadtxt(dir+"/hppids-test-ppis.txt")
-    test_labels  = loadtxt(dir+"/hppids-test-labels.txt")
+    test_labels  = loadtxt(dir+"/hppids-test-labels.txt", dtype=int)
+    test_len     = min(test_datas.shape[0], test_labels.shape[0])
     
     datas  = concatenate((train_datas,  test_datas),  axis=0)
     labels = concatenate((train_labels, test_labels), axis=0)
+    len    = min(datas.shape[0], labels.shape[0])
     
-    datas_len  = datas.shape[0]
-    labels_len = labels.shape[0]
-    if datas_len>labels_len:
-        len = labels_len
-    else:
-        len = datas_len
     perm = arange(len)
     random.shuffle(perm)
     
     datas  = datas[perm]
     labels = labels[perm]
     
-    train_datas  = datas[:datas_len]
-    train_labels = labels[:datas_len]
-    test_datas   = datas[datas_len:]
-    test_labels  = labels[datas_len:]
+    train_datas  = datas[:train_len]
+    train_labels = labels[:train_len]
+    test_datas   = datas[train_len:]
+    test_labels  = labels[train_len:]
     
     savetxt(dir+"/hppids-train-ppis.txt",   train_datas)
-    savetxt(dir+"/hppids-train-labels.txt", train_labels)
+    savetxt(dir+"/hppids-train-labels.txt", train_labels, fmt='%d')
     savetxt(dir+"/hppids-test-ppis.txt",    test_datas)
-    savetxt(dir+"/hppids-test-labels.txt",  test_labels)
+    savetxt(dir+"/hppids-test-labels.txt",  test_labels, fmt='%d')
 
 def convert_txt_to_bin(txt_file_name, bin_file_name, rows, columns, type, fmt):
     txt_file = open(txt_file_name)
