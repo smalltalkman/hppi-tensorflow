@@ -215,13 +215,13 @@ def shuffle(dir, train_len, test_len):
     os.rename(dir+"/hppids-test-ppis.txt",    dir+"/hppids-bak-test-ppis.txt")
     os.rename(dir+"/hppids-test-labels.txt",  dir+"/hppids-bak-test-labels.txt")
     
-    with open(dir+"/hppids-bak-train-ppis.txt"  ) as bak_train_datas,
-         open(dir+"/hppids-bak-train-labels.txt") as bak_train_labels,
-         open(dir+"/hppids-bak-test-ppis.txt"   ) as bak_test_datas,
-         open(dir+"/hppids-bak-test-labels.txt" ) as bak_test_labels,
-         open(dir+"/hppids-train-ppis.txt",   'w') as train_datas,
-         open(dir+"/hppids-train-labels.txt", 'w') as train_labels,
-         open(dir+"/hppids-test-ppis.txt",    'w') as test_datas,
+    with open(dir+"/hppids-bak-train-ppis.txt"  ) as bak_train_datas, \
+         open(dir+"/hppids-bak-train-labels.txt") as bak_train_labels, \
+         open(dir+"/hppids-bak-test-ppis.txt"   ) as bak_test_datas, \
+         open(dir+"/hppids-bak-test-labels.txt" ) as bak_test_labels, \
+         open(dir+"/hppids-train-ppis.txt",   'w') as train_datas, \
+         open(dir+"/hppids-train-labels.txt", 'w') as train_labels, \
+         open(dir+"/hppids-test-ppis.txt",    'w') as test_datas, \
          open(dir+"/hppids-test-labels.txt",  'w') as test_labels:
         # shuffle train
         index = 1
