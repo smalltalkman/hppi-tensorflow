@@ -58,14 +58,14 @@ def ld_code_of_0(CS):
     L, C, T = ld_info_of(CS)
     for Class, Indexs in C.items():
         Len = len(Indexs)
-        RC[int(Class)-1]=Len/L
+        RC[int(Class)-1]=Len*1.0/L
         Residues = [1, int(Len*0.25), int(Len*0.5), int(Len*0.75), Len]
-        Residues = list(map(lambda x:x/L, Residues))
+        Residues = list(map(lambda x:x*1.0/L, Residues))
         RD[(int(Class)-1)*5:int(Class)*5] = Residues
     for Trans, Frequency in T.items():
         PI, I = int(Trans[0])-1, int(Trans[1])-1
         Index = int((21-(6-PI)*(6-PI+1)/2)+(I-PI-1))
-        RT[Index] = Frequency/(L-1)
+        RT[Index] = Frequency*1.0/(L-1)
     # return RC, RT, RD
     return RC+RT+RD
 
