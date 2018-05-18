@@ -129,6 +129,7 @@ def main():
     # more(times, cwd+"/data/03-ac-bin",    "ac",  420, hidden_units, activation_fn, 2, optimizer, learning_rate, dnn_info, num_steps, model_dir_root, result_dir_root)
     # more(times, cwd+"/data/09-hppids", "ct+ac", 1106, hidden_units, activation_fn, 2, optimizer, learning_rate, dnn_info, num_steps, model_dir_root, result_dir_root)
     # more(times, cwd+"/data/04-ld-bin",    "ld", 1260, hidden_units, activation_fn, 2, optimizer, learning_rate, dnn_info, num_steps, model_dir_root, result_dir_root)
+    # more(times, cwd+"/data/05-mos-bin",  "mos",   98, hidden_units, activation_fn, 2, optimizer, learning_rate, dnn_info, num_steps, model_dir_root, result_dir_root)
 
 if __name__ == "__main__":
     main()
