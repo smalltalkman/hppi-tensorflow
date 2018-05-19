@@ -9,6 +9,7 @@ tf.logging.set_verbosity(tf.logging.INFO)
 
 # Training Parameters
 learning_rate = 0.01 # 0.01 => 0.001 => 0.0001
+dropout = 0.1
 num_steps = 10000
 
 # Network Parameters
@@ -17,7 +18,7 @@ num_classes =  2 # HPPI total classes
 
 cwd = os.getcwd()
 data_sets_dir = cwd+"/data/09-hppids"
-model_info = "_ct+ac({0:d}x{1:d})_256x256x256_relu_adam_{2:g}".format(num_input, num_classes, learning_rate)
+model_info = "_ct+ac({0:d}x{1:d})_256x256x256_relu_adam_{2:g}_dropout_{3:g}".format(num_input, num_classes, learning_rate, dropout)
 model_dir = cwd+"/model/train_with_tf_estimator"+model_info
 result_file = cwd+"/model/result_of_tf_estimator"+model_info+".txt"
 
@@ -39,6 +40,7 @@ def main():
                                           n_classes=num_classes,
                                           # optimizer='Adagrad',
                                           optimizer=tf.train.AdamOptimizer(learning_rate=learning_rate),
+                                          dropout=dropout,
                                           model_dir=model_dir)
   # Define the training inputs
   train_input_fn = tf.estimator.inputs.numpy_input_fn(
