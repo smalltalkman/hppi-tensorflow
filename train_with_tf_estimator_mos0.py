@@ -8,7 +8,7 @@ import tensorflow as tf
 tf.logging.set_verbosity(tf.logging.INFO)
 
 # Training Parameters
-learning_rate = 0.01 # 0.01 => 0.001 => 0.0001
+learning_rate = 0.001 # 0.01 => 0.001 => 0.0001
 dropout = 0.1
 num_steps = 10000
 

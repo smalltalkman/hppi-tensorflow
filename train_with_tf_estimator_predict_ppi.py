@@ -115,7 +115,7 @@ def main():
     hidden_units = [256,256,256]
     activation_fn = tf.nn.relu
     optimizer = tf.train.AdamOptimizer
-    learning_rate = 0.01 # 0.01 => 0.001 => 0.0001
+    learning_rate = 0.001 # 0.01 => 0.001 => 0.0001
     dnn_info = "relu_adam"
     num_steps = 10000
     model_dir_root = cwd+"/model/train_with_tf_estimator"
