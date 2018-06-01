@@ -35,7 +35,8 @@ def generate_mos1_file(INPUT_FILE, OUTPUT_FILE):
         # print(index, "=", line)
         if line:
             pairs = line.split(',')
-            result = numbers_to_str(corrcoef_of(pairs[0], pairs[1]).flatten().tolist())
+            # result = numbers_to_str(corrcoef_of(pairs[0], pairs[1]).flatten().tolist())
+            result = numbers_to_str(mos1_code_of(pairs[0]+pairs[1]).flatten().tolist())
             output_file.write(result+'\n')
         else:
             output_file.write('\n')
