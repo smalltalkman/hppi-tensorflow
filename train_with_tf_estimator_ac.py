@@ -11,6 +11,7 @@ tf.logging.set_verbosity(tf.logging.INFO)
 learning_rate = 0.001 # 0.01 => 0.001 => 0.0001
 dropout = 0.1
 num_steps = 10000
+times = 1
 
 # Network Parameters
 num_input = 420 # HPPI data input
@@ -24,8 +25,6 @@ data_sets_dir = cwd+"/data/03-ac-bin"
 model_info = "_ac({0:d}x{1:d})_{2}_{3}_{4}_{5:g}_dropout_{6:g}".format(num_input, num_classes, 'x'.join([str(n) for n in hidden_units]), activation_fn.func_name, optimizer.get_name(), learning_rate, dropout)
 model_dir = cwd+"/model/train_with_tf_estimator"+model_info
 result_file = cwd+"/model/result_of_tf_estimator"+model_info+".txt"
-
-times = 1
 
 def main():
   # Load datasets.
