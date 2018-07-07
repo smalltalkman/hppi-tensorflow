@@ -15,10 +15,13 @@ num_steps = 10000
 # Network Parameters
 num_input =  98 # HPPI data input
 num_classes = 2 # HPPI total classes
+hidden_units = [256, 256, 256]
+activation_fn = tf.nn.relu
+optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
 
 cwd = os.getcwd()
 data_sets_dir = cwd+"/data/05-mos-bin"
-model_info = "_mos({0:d}x{1:d})_256x256x256_relu_adam_{2:g}_dropout_{3:g}".format(num_input, num_classes, learning_rate, dropout)
+model_info = "_mos({0:d}x{1:d})_{2}_{3}_{4}_{5:g}_dropout_{6:g}".format(num_input, num_classes, 'x'.join([str(n) for n in hidden_units]), activation_fn.func_name, optimizer.get_name(), learning_rate, dropout)
 model_dir = cwd+"/model/train_with_tf_estimator"+model_info
 result_file = cwd+"/model/result_of_tf_estimator"+model_info+".txt"
 
@@ -35,11 +38,13 @@ def main():
   classifier = tf.estimator.DNNClassifier(feature_columns=feature_columns,
                                           # input_layer_partitioner=None,
                                           # hidden_units=[10, 20, 10],
-                                          hidden_units=[256, 256, 256],
+                                          # hidden_units=[256, 256, 256],
+                                          hidden_units=hidden_units,
                                           # activation_fn=tf.nn.relu,
                                           n_classes=num_classes,
                                           # optimizer='Adagrad',
-                                          optimizer=tf.train.AdamOptimizer(learning_rate=learning_rate),
+                                          # optimizer=tf.train.AdamOptimizer(learning_rate=learning_rate),
+                                          optimizer=optimizer,
                                           dropout=dropout,
                                           model_dir=model_dir)
   # Define the training inputs
