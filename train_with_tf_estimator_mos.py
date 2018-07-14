@@ -2,6 +2,8 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+from datetime import datetime
+
 import os, hppi
 
 import tensorflow as tf
@@ -57,7 +59,10 @@ def main():
       queue_capacity=hppids.train.length)
 
   # Train model.
+  begin_time = datetime.now()
   classifier.train(input_fn=train_input_fn, steps=num_steps)
+  end_time = datetime.now()
+  train_time = (end_time-begin_time).total_seconds()/num_steps*100
 
   # Define the test inputs
   test_input_fn = tf.estimator.inputs.numpy_input_fn(
@@ -80,6 +85,7 @@ def main():
              + ", label/mean = {0:8g}".format(scores["label/mean"]) \
              + ", loss = {0:8g}".format(scores["loss"]) \
              + ", prediction/mean = {0:8g}".format(scores["prediction/mean"]) \
+             + ", train_time = {0:8g}".format(train_time) \
 
   #print("\nTest Accuracy: {0:f}\n".format(accuracy_score))
   print("\nTest scores: {0}\n".format(scores_str))
