@@ -10,6 +10,7 @@ tf.logging.set_verbosity(tf.logging.INFO)
 # Training Parameters
 learning_rate = 0.001 # 0.01 => 0.001 => 0.0001
 dropout = 0.1
+batch_size = 128
 num_steps = 10000
 times = 1
 
@@ -50,6 +51,7 @@ def main():
   train_input_fn = tf.estimator.inputs.numpy_input_fn(
       x={"x": hppids.train.datas},
       y=hppids.train.labels,
+      batch_size=batch_size,
       num_epochs=None,
       shuffle=True,
       queue_capacity=hppids.train.length)
@@ -61,6 +63,7 @@ def main():
   test_input_fn = tf.estimator.inputs.numpy_input_fn(
       x={"x": hppids.test.datas},
       y=hppids.test.labels,
+      batch_size=batch_size,
       num_epochs=1,
       shuffle=False)
 
