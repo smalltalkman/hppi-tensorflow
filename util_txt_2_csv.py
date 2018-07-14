@@ -10,6 +10,7 @@ COLUMNS = [
     'average_loss',
     'label/mean',
     'prediction/mean',
+    'train_time',
 ]
 
 SEPARATOR = ','
