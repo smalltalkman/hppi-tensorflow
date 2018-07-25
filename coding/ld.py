@@ -60,7 +60,8 @@ def ld_code_of_0(CS):
         Len = len(Indexs)
         RC[int(Class)-1]=Len*1.0/L
         Residues = [1, int(Len*0.25), int(Len*0.5), int(Len*0.75), Len]
-        Residues = list(map(lambda x:x*1.0/L, Residues))
+        # Residues = list(map(lambda x:x*1.0/L, Residues))
+        Residues = list(map(lambda x:Indexs[x-1]*1.0/L, Residues))
         RD[(int(Class)-1)*5:int(Class)*5] = Residues
     for Trans, Frequency in T.items():
         PI, I = int(Trans[0])-1, int(Trans[1])-1
