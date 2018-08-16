@@ -107,6 +107,8 @@ def main():
     ACDD = CWD + "/data/03-ac"
     # Final data directory
     FDD  = CWD + "/data/09-hppids"
+    if not os.path.exists(FDD):
+        os.makedirs(FDD)
 
     # Files
     FILES = [
