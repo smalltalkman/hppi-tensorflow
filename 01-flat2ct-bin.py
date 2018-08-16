@@ -96,6 +96,8 @@ def main():
 
     CTDD =  CWD + "/data/02-ct"
     CTBDD = CWD + "/data/02-ct-bin"
+    if not os.path.exists(CTBDD):
+        os.makedirs(CTBDD)
 
     FILES = [
         "Supp-A-36630-HPRD-positive-interaction.txt",

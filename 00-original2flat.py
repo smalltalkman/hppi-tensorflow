@@ -50,6 +50,8 @@ def generate_flat_file(INPUT_FILE, OUTPUT_FILE, shift):
     output_file.close()
 
 if __name__=="__main__":
+    if not os.path.exists(FDD):
+        os.makedirs(FDD)
     for FILE, SHIFT in FILES:
         print("Processing "+FILE+" ...")
         generate_flat_file(ODD+"/"+FILE, FDD+"/"+FILE, SHIFT)

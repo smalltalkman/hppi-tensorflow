@@ -48,6 +48,8 @@ def generate_ct_file(INPUT_FILE, OUTPUT_FILE):
     output_file.close()
 
 if __name__=="__main__":
+    if not os.path.exists(CTDD):
+        os.makedirs(CTDD)
     for FILE in FILES:
         print("Processing "+FILE+" ...")
         generate_ct_file(FDD+"/"+FILE, CTDD+"/"+FILE)

@@ -96,6 +96,8 @@ def main():
 
     ACDD =  CWD + "/data/03-ac"
     ACBDD = CWD + "/data/03-ac-bin"
+    if not os.path.exists(ACBDD):
+        os.makedirs(ACBDD)
 
     FILES = [
         "Supp-A-36630-HPRD-positive-interaction.txt",
