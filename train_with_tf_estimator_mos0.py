@@ -17,7 +17,7 @@ num_steps = 10000
 times = 1
 
 # Network Parameters
-num_input =  800 # HPPI data input
+num_input =  422 # HPPI data input
 num_classes = 2 # HPPI total classes
 hidden_units = [256, 256, 256]
 activation_fn = tf.nn.relu
