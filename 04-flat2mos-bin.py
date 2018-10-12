@@ -109,9 +109,9 @@ def main():
         exclude_empty_line(MOSDD+"/"+FILE, MOSBDD+"/"+FILE)
         print("Processed!")
     split_data_to_file(MOSBDD)
-    convert_txt_to_bin(MOSBDD+"/hppids-train-ppis.txt",   MOSBDD+"/hppids-train-ppis.bin",   60000, 98, float, 'f')
+    convert_txt_to_bin(MOSBDD+"/hppids-train-ppis.txt",   MOSBDD+"/hppids-train-ppis.bin",   60000, 58, float, 'f')
     convert_txt_to_bin(MOSBDD+"/hppids-train-labels.txt", MOSBDD+"/hppids-train-labels.bin", 60000, 1,    int, 'i')
-    convert_txt_to_bin(MOSBDD+"/hppids-test-ppis.txt",    MOSBDD+"/hppids-test-ppis.bin",    12915, 98, float, 'f')
+    convert_txt_to_bin(MOSBDD+"/hppids-test-ppis.txt",    MOSBDD+"/hppids-test-ppis.bin",    12915, 58, float, 'f')
     convert_txt_to_bin(MOSBDD+"/hppids-test-labels.txt",  MOSBDD+"/hppids-test-labels.bin",  12915, 1,    int, 'i')
     print("Finished!!!")
 
