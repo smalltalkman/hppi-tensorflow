@@ -15,6 +15,8 @@ AAC = {
 }
 # AAC = { '1':['1'], '2':['2'], '3':['3'], '4':['4'], '5':['5'], '6':['6'], '7':['7'], }
 
+# AAC_L: Length of AAC.
+AAC_L = len(AAC)
 # AAC_R: Reverse of AAC.
 AAC_R = {}
 for C, AAS in AAC.items():
@@ -74,17 +76,16 @@ def mos_code_of_1(PS):
 
 def mos_code_of(PS):
     """Get MoS Code of protein sequence."""
-    DIM = len(AAC)
-    MOS = [[0]*DIM for _ in range(DIM)]
+    MOS = [[0]*AAC_L for _ in range(AAC_L)]
     CS = classification_sequence_of(PS)
     Len = len(CS)
-    Line = [0]*DIM
+    Line = [0]*AAC_L
     for I in range(Len-1, -1, -1):
         # print('I=', I)
         CI = int(CS[I  ])-1
         # print('CI=', CI)
         Line[CI] = Line[CI]+1
-        for P in range(DIM):
+        for P in range(AAC_L):
             MOS[CI][P] = MOS[CI][P]+Line[P]
         # print('MOS=', MOS)
     # flat mos
