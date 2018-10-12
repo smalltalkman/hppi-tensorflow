@@ -106,7 +106,7 @@ def main():
 
     TRAIN_ROWS = 60000
     TEST_ROWS  = 12915
-    SRC_COLUMNS = 800
+    SRC_COLUMNS = 422 # 800
     TGT_COLUMNS = 1
 
     for FILE in FILES:

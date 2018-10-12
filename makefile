@@ -84,6 +84,23 @@ MOS_BIN_DATA_B=$(MOS_BIN_DIR)/hppids-train-labels.bin
 MOS_BIN_DATA_C=$(MOS_BIN_DIR)/hppids-test-ppis.bin
 MOS_BIN_DATA_D=$(MOS_BIN_DIR)/hppids-test-labels.bin
 
+MOS0_DIR=data/06-mos0
+MOS0_STATUS=$(MOS0_DIR)/status
+MOS0_GENERATOR=05-flat2mos0.py
+MOS0_DATA_A=$(MOS0_DIR)/Supp-A-36630-HPRD-positive-interaction.txt
+MOS0_DATA_B=$(MOS0_DIR)/Supp-B-36480-HPRD-negative-interaction.txt
+MOS0_DATA_C=$(MOS0_DIR)/Supp-C-3899-HPRD-positive-interaction-below-0.25.txt
+MOS0_DATA_D=$(MOS0_DIR)/Supp-D-4262-HPRD-negative-interaction-below-0.25.txt
+MOS0_DATA_E=$(MOS0_DIR)/Supp-E-1882-interacting-0.5-non-interacting-0.5.txt
+
+MOS0_BIN_DIR=data/06-mos0-bin
+MOS0_BIN_STATUS=$(MOS0_BIN_DIR)/status
+MOS0_BIN_GENERATOR=05-flat2mos0-bin.py
+MOS0_BIN_DATA_A=$(MOS0_BIN_DIR)/hppids-train-ppis.bin
+MOS0_BIN_DATA_B=$(MOS0_BIN_DIR)/hppids-train-labels.bin
+MOS0_BIN_DATA_C=$(MOS0_BIN_DIR)/hppids-test-ppis.bin
+MOS0_BIN_DATA_D=$(MOS0_BIN_DIR)/hppids-test-labels.bin
+
 CTAC_BIN_DIR=data/09-hppids
 CTAC_BIN_STATUS=$(CTAC_BIN_DIR)/status
 CTAC_BIN_GENERATOR=09-to-final.py
@@ -144,13 +161,23 @@ $(MOS_BIN_STATUS):$(MOS_BIN_GENERATOR) $(MOS_STATUS)
 	@touch -m $(MOS_BIN_STATUS)
 	@echo "$(MOS_BIN_DIR) is ok"
 
+$(MOS0_STATUS):$(MOS0_GENERATOR) $(FLAT_STATUS)
+	python $(MOS0_GENERATOR)
+	@touch -m $(MOS0_STATUS)
+	@echo "$(MOS0_DIR) is ok"
+
+$(MOS0_BIN_STATUS):$(MOS0_BIN_GENERATOR) $(MOS0_STATUS)
+	python $(MOS0_BIN_GENERATOR)
+	@touch -m $(MOS0_BIN_STATUS)
+	@echo "$(MOS0_BIN_DIR) is ok"
+
 $(CTAC_BIN_STATUS):$(CTAC_BIN_GENERATOR) $(CT_STATUS) $(AC_STATUS)
 	python $(CTAC_BIN_GENERATOR)
 	@touch -m $(CTAC_BIN_STATUS)
 	@echo "$(CTAC_BIN_DIR) is ok"
 
 .PHONY:data
-data: $(CT_BIN_STATUS) $(AC_BIN_STATUS) $(LD_BIN_STATUS) $(MOS_BIN_STATUS) $(CTAC_BIN_STATUS)
+data: $(CT_BIN_STATUS) $(AC_BIN_STATUS) $(LD_BIN_STATUS) $(MOS_BIN_STATUS) $(MOS0_BIN_STATUS) $(CTAC_BIN_STATUS)
 
 .PHONY:main
 main: data

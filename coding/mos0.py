@@ -30,22 +30,24 @@ def mos0_code_of(PS):
     CS = classification_sequence_of(PS)
     Len = len(CS)
     Line = [0]*AAC_L
-    for I in range(Len-2, -1, -1):
+    for I in range(Len-1, -1, -1):
         # print('I=', I)
         CI = int(CS[I  ])-1
-        CJ = int(CS[I+1])-1
         # print('CI=', CI)
-        # print('CJ=', CJ)
-        Line[CJ] = Line[CJ]+1
+        Line[CI] = Line[CI]+1
         for P in range(AAC_L):
             MOS0[CI][P] = MOS0[CI][P]+Line[P]
         # print('MOS0=', MOS0)
+    # flat mos
     TMP = MOS0
     MOS0 = []
+    I   = 0
     for L in TMP:
-        MOS0 = MOS0 + L
-    Sum = Len*(Len-1)/2
-    MOS0 = [Num*1.0/Sum for Num in MOS0]
+        MOS0 = MOS0 + L[I:]
+        I   = I   + 1
+    # convert to proper decimal
+    Sum = Len*(Len+1)/2
+    MOS0 = [Num*1.0/Sum for Num in MOS0]+[1.0/Sum]
     return MOS0
 
 def main():
