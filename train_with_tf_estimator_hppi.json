@@ -1,146 +1,146 @@
 {
-  "result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.01_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_64_relu_Adam_0.01_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [64],
     "learning_rate" : 0.01,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_64_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [64],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.0001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_64_relu_Adam_0.0001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [64],
     "learning_rate" : 0.0001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_64_relu_Adam_1e-05_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_64_relu_Adam_1e-05_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [64],
     "learning_rate" : 0.00001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_128_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_128_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [128],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_512_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_512_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [512],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_1024_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_1024_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [1024],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256x256_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256x256_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256x256x256_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256x256x256_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256x256x256x256_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256x256x256x256_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256,256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256x256x256x256x256_relu_Adam_0.001_dropout_0.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256x256x256x256x256_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256,256,256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.1.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.1.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0.1,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.3.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.3.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0.3,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.4.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.4.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0.4,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.5.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.5.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0.5,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.6.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.6.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0.6,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.7.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.7.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0.7,
     "times" : 30
   },
-  "result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.9.txt" : {
-    "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
+  "ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.9.txt" : {
+    "data_sets_info" : "ct", "data_sets_dir" : "data/02-ct-bin", "num_input" : 686, "num_classes" : 2,
     "hidden_units" : [256,256,256],
     "learning_rate" : 0.001,
     "dropout" : 0.9,

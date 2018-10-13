@@ -216,11 +216,11 @@ $(CTAC_BIN_STATUS):$(CTAC_BIN_GENERATOR) $(CT_STATUS) $(AC_STATUS)
 .PHONY:data
 data: $(CT_BIN_STATUS) $(AC_BIN_STATUS) $(LD_BIN_STATUS) $(MOS_BIN_STATUS) $(MOS0_BIN_STATUS) $(CTAC_BIN_STATUS)
 
-%.txt:
-	python train_with_tf_estimator_hppi.py $@
+model/%.txt:
+	python train_with_tf_estimator_hppi.py `echo "$@"|cut -c30-`
 
 $(MODEL_RESULTS):%.csv:%.txt
-	python util_txt_2_csv.py $< $@
+	python util_txt_2_csv.py "$<" "$@"
 
 .PHONY:model
 model: $(MODEL_RESULTS)
