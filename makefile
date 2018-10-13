@@ -111,6 +111,32 @@ CTAC_BIN_GENERATOR=09-to-final.py
 # CTAC_BIN_DATA_C=$(CTAC_BIN_DIR)/hppids-test-ppis.bin
 # CTAC_BIN_DATA_D=$(CTAC_BIN_DIR)/hppids-test-labels.bin
 
+CT_MODEL_RESULTS= \
+	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.01_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.0001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_1e-05_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_128_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_256_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_512_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_1024_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256x256_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256x256x256_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256x256x256x256_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256x256x256x256x256_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.1.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.3.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.4.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.5.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.6.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
+	model/result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.9.csv \
+
+MODEL_RESULTS=$(CT_MODEL_RESULTS)
+
 .PHONY: default
 default: main
 
@@ -190,5 +216,14 @@ $(CTAC_BIN_STATUS):$(CTAC_BIN_GENERATOR) $(CT_STATUS) $(AC_STATUS)
 .PHONY:data
 data: $(CT_BIN_STATUS) $(AC_BIN_STATUS) $(LD_BIN_STATUS) $(MOS_BIN_STATUS) $(MOS0_BIN_STATUS) $(CTAC_BIN_STATUS)
 
+%.txt:
+	python train_with_tf_estimator_hppi.py $@
+
+$(MODEL_RESULTS):%.csv:%.txt
+	python util_txt_2_csv.py $< $@
+
+.PHONY:model
+model: $(MODEL_RESULTS)
+
 .PHONY:main
-main: data
+main: data model

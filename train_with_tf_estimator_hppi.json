@@ -1,0 +1,38 @@
+{
+  "result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.01_dropout_0.txt" : {
+    "data_sets_dir" : "data/02-ct-bin",
+    "num_input" : 686,
+    "num_classes" : 2,
+    "hidden_units" : [64],
+    "learning_rate" : 0.01,
+    "dropout" : 0,
+    "times" : 30
+  },
+  "result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.001_dropout_0.txt" : {
+    "data_sets_dir" : "data/02-ct-bin",
+    "num_input" : 686,
+    "num_classes" : 2,
+    "hidden_units" : [64],
+    "learning_rate" : 0.001,
+    "dropout" : 0,
+    "times" : 30
+  },
+  "result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.0001_dropout_0.txt" : {
+    "data_sets_dir" : "data/02-ct-bin",
+    "num_input" : 686,
+    "num_classes" : 2,
+    "hidden_units" : [64],
+    "learning_rate" : 0.0001,
+    "dropout" : 0,
+    "times" : 30
+  },
+  "result_of_tf_estimator_ct(686x2)_64_relu_Adam_1e-05_dropout_0.txt" : {
+    "data_sets_dir" : "data/02-ct-bin",
+    "num_input" : 686,
+    "num_classes" : 2,
+    "hidden_units" : [64],
+    "learning_rate" : 0.00001,
+    "dropout" : 0,
+    "times" : 30
+  }
+}

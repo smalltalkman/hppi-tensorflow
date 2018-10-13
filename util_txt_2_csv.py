@@ -56,4 +56,8 @@ def main():
     pass
 
 if __name__ == "__main__":
-    main()
+    # main()
+    from sys import argv
+    _, input, output = argv
+
+    txt_2_csv(input, output)

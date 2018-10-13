@@ -75,22 +75,31 @@ def main():
 
 if __name__ == "__main__":
 
+  from sys import argv
+  _, target = argv
+
+  import json
+  with open('train_with_tf_estimator_hppi.json') as config_file:
+    configs = json.load(config_file)
+
+  config = configs[target]
+
   # Training Parameters
-  learning_rate = 0.001 # 0.01 => 0.001 => 0.0001
-  dropout = 0.1
+  learning_rate = config['learning_rate'] # 0.001 # 0.01 => 0.001 => 0.0001
+  dropout = config['dropout'] # 0.1
   batch_size = 128
   num_steps = 10000
-  times = 1
+  times = config['times'] # 1
 
   # Network Parameters
-  num_input = 686 # HPPI data input
-  num_classes = 2 # HPPI total classes
-  hidden_units = [256, 256, 256]
+  num_input = config['num_input'] # 686 # HPPI data input
+  num_classes = config['num_classes'] # 2 # HPPI total classes
+  hidden_units = config['hidden_units'] # [256, 256, 256]
   activation_fn = tf.nn.relu
   optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
 
   cwd = os.getcwd()
-  data_sets_dir = cwd+"/data/02-ct-bin"
+  data_sets_dir = cwd+"/"+config['data_sets_dir'] # "/data/02-ct-bin"
   model_info = "_ct({0:d}x{1:d})_{2}_{3}_{4}_{5:g}_dropout_{6:g}".format(num_input, num_classes, 'x'.join([str(n) for n in hidden_units]), activation_fn.func_name, optimizer.get_name(), learning_rate, dropout)
   model_dir = cwd+"/model/train_with_tf_estimator"+model_info
   result_file = cwd+"/model/result_of_tf_estimator"+model_info+".txt"
