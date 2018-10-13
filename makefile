@@ -124,6 +124,14 @@ $(FLAT_STATUS):$(FLAT_GENERATOR) $(ORIGINAL_STATUS)
 	@touch -m $(FLAT_STATUS)
 	@echo "$(FLAT_DIR) is ok"
 
+.PHONY:statistics
+statistics: statistics.py $(FLAT_STATUS)
+	python statistics.py --input $(FLAT_DATA_A) --output $(FLAT_DATA_A).csv
+	python statistics.py --input $(FLAT_DATA_B) --output $(FLAT_DATA_B).csv
+	python statistics.py --input $(FLAT_DATA_C) --output $(FLAT_DATA_C).csv
+	python statistics.py --input $(FLAT_DATA_D) --output $(FLAT_DATA_D).csv
+	python statistics.py --input $(FLAT_DATA_E) --output $(FLAT_DATA_E).csv
+
 $(CT_STATUS):$(CT_GENERATOR) $(FLAT_STATUS)
 	python $(CT_GENERATOR)
 	@touch -m $(CT_STATUS)
@@ -178,14 +186,6 @@ $(CTAC_BIN_STATUS):$(CTAC_BIN_GENERATOR) $(CT_STATUS) $(AC_STATUS)
 	python $(CTAC_BIN_GENERATOR)
 	@touch -m $(CTAC_BIN_STATUS)
 	@echo "$(CTAC_BIN_DIR) is ok"
-
-.PHONY:statistics
-statistics: statistics.py $(FLAT_STATUS)
-	python statistics.py --input $(FLAT_DATA_A) --output $(FLAT_DATA_A).csv
-	python statistics.py --input $(FLAT_DATA_B) --output $(FLAT_DATA_B).csv
-	python statistics.py --input $(FLAT_DATA_C) --output $(FLAT_DATA_C).csv
-	python statistics.py --input $(FLAT_DATA_D) --output $(FLAT_DATA_D).csv
-	python statistics.py --input $(FLAT_DATA_E) --output $(FLAT_DATA_E).csv
 
 .PHONY:data
 data: $(CT_BIN_STATUS) $(AC_BIN_STATUS) $(LD_BIN_STATUS) $(MOS_BIN_STATUS) $(MOS0_BIN_STATUS) $(CTAC_BIN_STATUS)
