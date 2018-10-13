@@ -1,4 +1,6 @@
 
+ORIGINAL_ZIP=original/Benchmark_Data.zip
+
 ORIGINAL_DIR=data/00-original
 ORIGINAL_STATUS=$(ORIGINAL_DIR)/status
 ORIGINAL_DATA_A=$(ORIGINAL_DIR)/Supp-A-36630-HPRD-positive-interaction.txt
@@ -112,7 +114,8 @@ CTAC_BIN_DATA_D=$(CTAC_BIN_DIR)/hppids-test-labels.bin
 .PHONY: default
 default: main
 
-$(ORIGINAL_STATUS):$(ORIGINAL_DATA_A) $(ORIGINAL_DATA_B) $(ORIGINAL_DATA_C) $(ORIGINAL_DATA_D) $(ORIGINAL_DATA_E)
+$(ORIGINAL_STATUS):$(ORIGINAL_ZIP)
+	unzip -o $(ORIGINAL_ZIP) -d $(ORIGINAL_DIR)
 	@touch -m $(ORIGINAL_STATUS)
 	@echo "$(ORIGINAL_DIR) is ok"
 
