@@ -12,11 +12,11 @@ ORIGINAL_STATUS=$(ORIGINAL_DIR)/status
 FLAT_DIR=data/01-flat
 FLAT_STATUS=$(FLAT_DIR)/status
 FLAT_GENERATOR=00-original2flat.py
-# FLAT_DATA_A=$(FLAT_DIR)/Supp-A-36630-HPRD-positive-interaction.txt
-# FLAT_DATA_B=$(FLAT_DIR)/Supp-B-36480-HPRD-negative-interaction.txt
-# FLAT_DATA_C=$(FLAT_DIR)/Supp-C-3899-HPRD-positive-interaction-below-0.25.txt
-# FLAT_DATA_D=$(FLAT_DIR)/Supp-D-4262-HPRD-negative-interaction-below-0.25.txt
-# FLAT_DATA_E=$(FLAT_DIR)/Supp-E-1882-interacting-0.5-non-interacting-0.5.txt
+FLAT_DATA_A=$(FLAT_DIR)/Supp-A-36630-HPRD-positive-interaction.txt
+FLAT_DATA_B=$(FLAT_DIR)/Supp-B-36480-HPRD-negative-interaction.txt
+FLAT_DATA_C=$(FLAT_DIR)/Supp-C-3899-HPRD-positive-interaction-below-0.25.txt
+FLAT_DATA_D=$(FLAT_DIR)/Supp-D-4262-HPRD-negative-interaction-below-0.25.txt
+FLAT_DATA_E=$(FLAT_DIR)/Supp-E-1882-interacting-0.5-non-interacting-0.5.txt
 
 CT_DIR=data/02-ct
 CT_STATUS=$(CT_DIR)/status
@@ -178,6 +178,14 @@ $(CTAC_BIN_STATUS):$(CTAC_BIN_GENERATOR) $(CT_STATUS) $(AC_STATUS)
 	python $(CTAC_BIN_GENERATOR)
 	@touch -m $(CTAC_BIN_STATUS)
 	@echo "$(CTAC_BIN_DIR) is ok"
+
+.PHONY:statistics
+statistics: statistics.py $(FLAT_STATUS)
+	python statistics.py --input $(FLAT_DATA_A) --output $(FLAT_DATA_A).csv
+	python statistics.py --input $(FLAT_DATA_B) --output $(FLAT_DATA_B).csv
+	python statistics.py --input $(FLAT_DATA_C) --output $(FLAT_DATA_C).csv
+	python statistics.py --input $(FLAT_DATA_D) --output $(FLAT_DATA_D).csv
+	python statistics.py --input $(FLAT_DATA_E) --output $(FLAT_DATA_E).csv
 
 .PHONY:data
 data: $(CT_BIN_STATUS) $(AC_BIN_STATUS) $(LD_BIN_STATUS) $(MOS_BIN_STATUS) $(MOS0_BIN_STATUS) $(CTAC_BIN_STATUS)
