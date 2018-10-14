@@ -82,25 +82,26 @@ if __name__ == "__main__":
   with open('train_with_tf_estimator_hppi.json') as config_file:
     configs = json.load(config_file)
 
-  config = configs[target]
+  model = configs['models'][target]
+  data_set = configs['data_sets'][model['data_sets_info']]
 
   # Training Parameters
-  learning_rate = config['learning_rate'] # 0.001 # 0.01 => 0.001 => 0.0001
-  dropout = config['dropout'] # 0.1
+  learning_rate = model['learning_rate'] # 0.001 # 0.01 => 0.001 => 0.0001
+  dropout = model['dropout'] # 0.1
   batch_size = 128
   num_steps = 10000
-  times = config['times'] # 1
+  times = model['times'] # 1
 
   # Network Parameters
-  num_input = config['num_input'] # 686 # HPPI data input
-  num_classes = config['num_classes'] # 2 # HPPI total classes
-  hidden_units = config['hidden_units'] # [256, 256, 256]
+  num_input = data_set['num_input'] # 686 # HPPI data input
+  num_classes = data_set['num_classes'] # 2 # HPPI total classes
+  hidden_units = model['hidden_units'] # [256, 256, 256]
   activation_fn = tf.nn.relu
   optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
 
   cwd = os.getcwd()
-  data_sets_dir = cwd+"/"+config['data_sets_dir'] # "/data/02-ct-bin"
-  model_info = "_{0}({1:d}x{2:d})_{3}_{4}_{5}_{6:g}_dropout_{7:g}".format(config['data_sets_info'], num_input, num_classes, 'x'.join([str(n) for n in hidden_units]), activation_fn.func_name, optimizer.get_name(), learning_rate, dropout)
+  data_sets_dir = cwd+"/"+data_set['dir'] # "/data/02-ct-bin"
+  model_info = "_{0}({1:d}x{2:d})_{3}_{4}_{5}_{6:g}_dropout_{7:g}".format(model['data_sets_info'], num_input, num_classes, 'x'.join([str(n) for n in hidden_units]), activation_fn.func_name, optimizer.get_name(), learning_rate, dropout)
   model_dir = cwd+"/model/train_with_tf_estimator"+model_info
   result_file = cwd+"/model/result_of_tf_estimator"+model_info+".txt"
 
