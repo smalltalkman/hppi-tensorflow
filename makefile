@@ -239,6 +239,8 @@ $(MODEL_RESULTS):%.csv:%.txt
 
 .PHONY:model
 model: $(MODEL_RESULTS)
+	mkdir -p results
+	cp -rfp model/result_of_tf_estimator_*.csv results
 
 .PHONY:main
 main: data model
