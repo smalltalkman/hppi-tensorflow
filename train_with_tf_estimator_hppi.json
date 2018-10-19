@@ -1,6 +1,7 @@
 {
   "data_sets" : {
     "ct"      : { "num_input" :   686, "num_classes" :  2, "dir" : "data/02-ct-bin" },
+    "ac"      : { "num_input" :   420, "num_classes" :  2, "dir" : "data/03-ac-bin" },
     "ld"      : { "num_input" :  1260, "num_classes" :  2, "dir" : "data/04-ld-bin" },
     "mos"     : { "num_input" :    58, "num_classes" :  2, "dir" : "data/05-mos-bin" }
   },
@@ -47,6 +48,14 @@
       { "data_sets_info" : "ct", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.7, "times" : 30 },
     "ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.9.txt" : 
       { "data_sets_info" : "ct", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.9, "times" : 30 },
+    "ac(420x2)_64_relu_Adam_0.01_dropout_0.txt" : 
+      { "data_sets_info" : "ac", "hidden_units" : [64], "learning_rate" : 0.01, "dropout" : 0, "times" : 30 },
+    "ac(420x2)_64_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "ac", "hidden_units" : [64], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "ac(420x2)_64_relu_Adam_0.0001_dropout_0.txt" : 
+      { "data_sets_info" : "ac", "hidden_units" : [64], "learning_rate" : 0.0001, "dropout" : 0, "times" : 30 },
+    "ac(420x2)_64_relu_Adam_1e-05_dropout_0.txt" : 
+      { "data_sets_info" : "ac", "hidden_units" : [64], "learning_rate" : 0.00001, "dropout" : 0, "times" : 30 },
     "mos(58x2)_64_relu_Adam_0.01_dropout_0.txt" : 
       { "data_sets_info" : "mos", "hidden_units" : [64], "learning_rate" : 0.01, "dropout" : 0, "times" : 30 },
     "mos(58x2)_64_relu_Adam_0.001_dropout_0.txt" : 

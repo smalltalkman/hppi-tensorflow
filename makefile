@@ -135,6 +135,12 @@ CT_MODEL_RESULTS= \
 	model/result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
 	model/result_of_tf_estimator_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.9.csv \
 
+AC_MODEL_RESULTS= \
+	model/result_of_tf_estimator_ac(420x2)_64_relu_Adam_0.01_dropout_0.csv \
+	model/result_of_tf_estimator_ac(420x2)_64_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ac(420x2)_64_relu_Adam_0.0001_dropout_0.csv \
+	model/result_of_tf_estimator_ac(420x2)_64_relu_Adam_1e-05_dropout_0.csv \
+
 LD_MODEL_RESULTS= \
 	model/result_of_tf_estimator_ld(1260x2)_64_relu_Adam_0.01_dropout_0.csv \
 	model/result_of_tf_estimator_ld(1260x2)_64_relu_Adam_0.001_dropout_0.csv \
@@ -172,7 +178,7 @@ MOS_MODEL_RESULTS= \
 	model/result_of_tf_estimator_mos(58x2)_512x256x128_relu_Adam_0.001_dropout_0.csv \
 	model/result_of_tf_estimator_mos(58x2)_512x512_relu_Adam_0.001_dropout_0.csv \
 
-MODEL_RESULTS=$(CT_MODEL_RESULTS) $(LD_MODEL_RESULTS) $(MOS_MODEL_RESULTS)
+MODEL_RESULTS=$(CT_MODEL_RESULTS) $(AC_MODEL_RESULTS) $(LD_MODEL_RESULTS) $(MOS_MODEL_RESULTS)
 
 .PHONY: default
 default: main
