@@ -147,6 +147,12 @@ AC_MODEL_RESULTS= \
 	model/result_of_tf_estimator_ac(420x2)_256x256_relu_Adam_0.001_dropout_0.csv \
 	model/result_of_tf_estimator_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.csv \
 	model/result_of_tf_estimator_ac(420x2)_256x256x256x256_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.1.csv \
+	model/result_of_tf_estimator_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.3.csv \
+	model/result_of_tf_estimator_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.5.csv \
+	model/result_of_tf_estimator_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
+	model/result_of_tf_estimator_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.8.csv \
+	model/result_of_tf_estimator_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.9.csv \
 
 LD_MODEL_RESULTS= \
 	model/result_of_tf_estimator_ld(1260x2)_64_relu_Adam_0.01_dropout_0.csv \

@@ -70,6 +70,18 @@
       { "data_sets_info" : "ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
     "ac(420x2)_256x256x256x256_relu_Adam_0.001_dropout_0.txt" : 
       { "data_sets_info" : "ac", "hidden_units" : [256,256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.1.txt" : 
+      { "data_sets_info" : "ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.1, "times" : 30 },
+    "ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.3.txt" : 
+      { "data_sets_info" : "ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.3, "times" : 30 },
+    "ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.5.txt" : 
+      { "data_sets_info" : "ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.5, "times" : 30 },
+    "ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.7.txt" : 
+      { "data_sets_info" : "ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.7, "times" : 30 },
+    "ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.8.txt" : 
+      { "data_sets_info" : "ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.8, "times" : 30 },
+    "ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.9.txt" : 
+      { "data_sets_info" : "ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.9, "times" : 30 },
     "mos(58x2)_64_relu_Adam_0.01_dropout_0.txt" : 
       { "data_sets_info" : "mos", "hidden_units" : [64], "learning_rate" : 0.01, "dropout" : 0, "times" : 30 },
     "mos(58x2)_64_relu_Adam_0.001_dropout_0.txt" : 
