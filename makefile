@@ -111,6 +111,11 @@ CTAC_BIN_GENERATOR=09-to-final.py
 # CTAC_BIN_DATA_C=$(CTAC_BIN_DIR)/hppids-test-ppis.bin
 # CTAC_BIN_DATA_D=$(CTAC_BIN_DIR)/hppids-test-labels.bin
 
+PREDICT_PPI_ZIP=original/predict_PPI.zip
+PREDICT_PPI_DIR=data/predict_PPI
+PREDICT_PPI_STATUS=$(PREDICT_PPI_DIR)/status
+PREDICT_PPI_GENERATOR=20-predict_ppi-bin.py
+
 CT_MODEL_RESULTS= \
 	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.01_dropout_0.csv \
 	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.001_dropout_0.csv \
@@ -269,8 +274,15 @@ $(CTAC_BIN_STATUS):$(CTAC_BIN_GENERATOR) $(CT_STATUS) $(AC_STATUS)
 	@touch -m $(CTAC_BIN_STATUS)
 	@echo "$(CTAC_BIN_DIR) is ok"
 
+$(PREDICT_PPI_STATUS):$(PREDICT_PPI_GENERATOR) $(PREDICT_PPI_ZIP)
+	unzip -o $(PREDICT_PPI_ZIP) -d $(PREDICT_PPI_DIR)
+	python $(PREDICT_PPI_GENERATOR)
+	@touch -m $(PREDICT_PPI_STATUS)
+	@echo "$(PREDICT_PPI_DIR) is ok"
+
 .PHONY:data
-data: $(CT_BIN_STATUS) $(AC_BIN_STATUS) $(LD_BIN_STATUS) $(MOS_BIN_STATUS) $(MOS0_BIN_STATUS) $(CTAC_BIN_STATUS)
+data: $(CT_BIN_STATUS) $(AC_BIN_STATUS) $(LD_BIN_STATUS) $(MOS_BIN_STATUS) $(MOS0_BIN_STATUS) $(CTAC_BIN_STATUS) \
+	$(PREDICT_PPI_STATUS)
 
 model/%.txt:
 	python train_with_tf_estimator_hppi.py `echo "$@"|cut -c30-`
