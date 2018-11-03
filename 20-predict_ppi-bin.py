@@ -307,13 +307,19 @@ def convert_all_txt_to_bin(dir
 def main():
     cwd = os.getcwd()
     logging.basicConfig(level=logging.DEBUG, filemode = 'w', filename=cwd+'/data/predict_PPI/all.log')
-    infos = [("/data/predict_PPI/C.elegan", 3627)
-            ,("/data/predict_PPI/Drosophila", 19777)
-            ,("/data/predict_PPI/E.coli", 6258)
-            ,("/data/predict_PPI/Human", 33318)
-            ,("/data/predict_PPI/Yeast", 5348)
+    # infos = [("/data/predict_PPI/C.elegan", 3627)
+            # ,("/data/predict_PPI/Drosophila", 19777)
+            # ,("/data/predict_PPI/E.coli", 6258)
+            # ,("/data/predict_PPI/Human", 33318)
+            # ,("/data/predict_PPI/Yeast", 5348)
+            # ]
+    infos = [("/data/predict_PPI/C.elegan", 0.6)
+            ,("/data/predict_PPI/Drosophila", 0.6)
+            ,("/data/predict_PPI/E.coli", 0.6)
+            ,("/data/predict_PPI/Human", 0.6)
+            ,("/data/predict_PPI/Yeast", 0.6)
             ]
-    for dir, max_train_index in infos:
+    for dir, ratio in infos:
         source_dir = cwd+dir
         # flat
         target_dir = source_dir+"/bin"
@@ -331,27 +337,27 @@ def main():
         ct_dir = target_dir+"/ct"
         if not os.path.exists(ct_dir):
             os.makedirs(ct_dir)
-        generate_ct_file(target_dir+"/Negative_protein.txt", ct_dir+"/Negative_protein.txt")
-        generate_ct_file(target_dir+"/Positive_protein.txt", ct_dir+"/Positive_protein.txt")
-        train_lines, test_lines = split_data_to_file(ct_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
+        neg_lines = generate_ct_file(target_dir+"/Negative_protein.txt", ct_dir+"/Negative_protein.txt")
+        pos_lines = generate_ct_file(target_dir+"/Positive_protein.txt", ct_dir+"/Positive_protein.txt")
+        train_lines, test_lines = split_data_to_file(ct_dir, "Positive_protein.txt", "1", int(pos_lines*ratio), "Negative_protein.txt", "0", int(neg_lines*ratio))
         shuffle(ct_dir, train_lines, test_lines)
         convert_all_txt_to_bin(ct_dir, train_lines, test_lines, 686, 1, float, int, 'f', 'i')
         # ac
         ac_dir = target_dir+"/ac"
         if not os.path.exists(ac_dir):
             os.makedirs(ac_dir)
-        generate_ac_file(target_dir+"/Negative_protein.txt", ac_dir+"/Negative_protein.txt")
-        generate_ac_file(target_dir+"/Positive_protein.txt", ac_dir+"/Positive_protein.txt")
-        train_lines, test_lines = split_data_to_file(ac_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
+        neg_lines = generate_ac_file(target_dir+"/Negative_protein.txt", ac_dir+"/Negative_protein.txt")
+        pos_lines = generate_ac_file(target_dir+"/Positive_protein.txt", ac_dir+"/Positive_protein.txt")
+        train_lines, test_lines = split_data_to_file(ac_dir, "Positive_protein.txt", "1", int(pos_lines*ratio), "Negative_protein.txt", "0", int(neg_lines*ratio))
         shuffle(ac_dir, train_lines, test_lines)
         convert_all_txt_to_bin(ac_dir, train_lines, test_lines, 420, 1, float, int, 'f', 'i')
         # ct+ac
         ct_ac_dir = target_dir+"/ct+ac"
         if not os.path.exists(ct_ac_dir):
             os.makedirs(ct_ac_dir)
-        concat_data_to_file(ct_dir+"/Negative_protein.txt", ac_dir+"/Negative_protein.txt", ct_ac_dir+"/Negative_protein.txt")
-        concat_data_to_file(ct_dir+"/Positive_protein.txt", ac_dir+"/Positive_protein.txt", ct_ac_dir+"/Positive_protein.txt")
-        train_lines, test_lines = split_data_to_file(ct_ac_dir, "Positive_protein.txt", "1", max_train_index, "Negative_protein.txt", "0", max_train_index)
+        neg_lines = concat_data_to_file(ct_dir+"/Negative_protein.txt", ac_dir+"/Negative_protein.txt", ct_ac_dir+"/Negative_protein.txt")
+        pos_lines = concat_data_to_file(ct_dir+"/Positive_protein.txt", ac_dir+"/Positive_protein.txt", ct_ac_dir+"/Positive_protein.txt")
+        train_lines, test_lines = split_data_to_file(ct_ac_dir, "Positive_protein.txt", "1", int(pos_lines*ratio), "Negative_protein.txt", "0", int(neg_lines*ratio))
         shuffle(ct_ac_dir, train_lines, test_lines)
         convert_all_txt_to_bin(ct_ac_dir, train_lines, test_lines, 1106, 1, float, int, 'f', 'i')
 
