@@ -3,6 +3,10 @@ sys.path.append(os.getcwd())
 from coding import *
 from numpy import *
 
+def remove_if_exists(filename):
+  if os.path.exists(filename):
+    os.remove(filename)
+
 def generate_flat_file(A_FILE, B_FILE, OUTPUT_FILE):
     lines = 0
     a_file      = open(A_FILE)
@@ -210,6 +214,11 @@ def shuffle(dir, train_len, test_len):
     train_lines = lines[:train_len]
     test_lines  = lines[train_len:]
     
+    remove_if_exists(dir+"/hppids-bak-train-ppis.txt");
+    remove_if_exists(dir+"/hppids-bak-train-labels.txt");
+    remove_if_exists(dir+"/hppids-bak-test-ppis.txt");
+    remove_if_exists(dir+"/hppids-bak-test-labels.txt");
+    
     os.rename(dir+"/hppids-train-ppis.txt",   dir+"/hppids-bak-train-ppis.txt")
     os.rename(dir+"/hppids-train-labels.txt", dir+"/hppids-bak-train-labels.txt")
     os.rename(dir+"/hppids-test-ppis.txt",    dir+"/hppids-bak-test-ppis.txt")
@@ -297,7 +306,7 @@ def convert_all_txt_to_bin(dir
 
 def main():
     cwd = os.getcwd()
-    logging.basicConfig(filename=cwd+'/data/predict_PPI/all.log')
+    logging.basicConfig(level=logging.DEBUG, filemode = 'w', filename=cwd+'/data/predict_PPI/all.log')
     infos = [("/data/predict_PPI/C.elegan", 3627)
             ,("/data/predict_PPI/Drosophila", 19777)
             ,("/data/predict_PPI/E.coli", 6258)
