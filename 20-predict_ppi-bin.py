@@ -1,4 +1,4 @@
-import sys, os, struct
+import sys, os, struct, logging
 sys.path.append(os.getcwd())
 from coding import *
 from numpy import *
@@ -8,7 +8,7 @@ def generate_flat_file(A_FILE, B_FILE, OUTPUT_FILE):
     a_file      = open(A_FILE)
     b_file      = open(B_FILE)
     output_file = open(OUTPUT_FILE, 'w')
-    print("Generating {0} ...".format(OUTPUT_FILE))
+    logging.info("Generating {0} ...".format(OUTPUT_FILE))
     index = 1
     a_line = a_file.readline()
     b_line = b_file.readline()
@@ -29,11 +29,11 @@ def generate_flat_file(A_FILE, B_FILE, OUTPUT_FILE):
                     output_file.write(output_line)
                     lines = lines + 1
         if index%1000 == 0:
-            print("finish index==" + str(index//1000))
+            logging.info("finish index==" + str(index//1000))
         index = index + 1
         a_line = a_file.readline()
         b_line = b_file.readline()
-    print("Generated {0} !".format(OUTPUT_FILE))
+    logging.info("Generated {0} !".format(OUTPUT_FILE))
     a_file.close()
     b_file.close()
     output_file.close()
@@ -46,7 +46,7 @@ def generate_ct_file(INPUT_FILE, OUTPUT_FILE):
     lines = 0
     input_file  = open(INPUT_FILE)
     output_file = open(OUTPUT_FILE, 'w')
-    print("Generating {0} ...".format(OUTPUT_FILE))
+    logging.info("Generating {0} ...".format(OUTPUT_FILE))
     index = 1
     line  = input_file.readline()
     while line:
@@ -57,10 +57,10 @@ def generate_ct_file(INPUT_FILE, OUTPUT_FILE):
             output_file.write(result+'\n')
             lines = lines + 1
         if index%1000 == 0:
-            print("finish index==" + str(index//1000))
+            logging.info("finish index==" + str(index//1000))
         index = index + 1
         line  = input_file.readline()
-    print("Generated {0} !".format(OUTPUT_FILE))
+    logging.info("Generated {0} !".format(OUTPUT_FILE))
     input_file.close()
     output_file.close()
     return lines
@@ -69,7 +69,7 @@ def generate_ac_file(INPUT_FILE, OUTPUT_FILE):
     lines = 0
     input_file  = open(INPUT_FILE)
     output_file = open(OUTPUT_FILE, 'w')
-    print("Generating {0} ...".format(OUTPUT_FILE))
+    logging.info("Generating {0} ...".format(OUTPUT_FILE))
     index = 1
     line = input_file.readline()
     while line:
@@ -80,10 +80,10 @@ def generate_ac_file(INPUT_FILE, OUTPUT_FILE):
             output_file.write(result+'\n')
             lines = lines + 1
         if index%1000 == 0:
-            print("finish index==" + str(index//1000))
+            logging.info("finish index==" + str(index//1000))
         index = index + 1
         line = input_file.readline()
-    print("Generated {0} !".format(OUTPUT_FILE))
+    logging.info("Generated {0} !".format(OUTPUT_FILE))
     input_file.close()
     output_file.close()
     return lines
@@ -93,7 +93,7 @@ def concat_data_to_file(A_INPUT_FILE, B_INPUT_FILE, OUTPUT_FILE):
     a_input_file = open(A_INPUT_FILE)
     b_input_file = open(B_INPUT_FILE)
     output_file  = open(OUTPUT_FILE, 'w')
-    print("Generating {0} ...".format(OUTPUT_FILE))
+    logging.info("Generating {0} ...".format(OUTPUT_FILE))
     index = 1
     a_line = a_input_file.readline()
     b_line = b_input_file.readline()
@@ -105,11 +105,11 @@ def concat_data_to_file(A_INPUT_FILE, B_INPUT_FILE, OUTPUT_FILE):
             output_file.write(output_line)
             lines = lines + 1
         if index%1000 == 0:
-            print("finish index==" + str(index//1000))
+            logging.info("finish index==" + str(index//1000))
         index = index + 1
         a_line = a_input_file.readline()
         b_line = b_input_file.readline()
-    print("Generated {0} !".format(OUTPUT_FILE))
+    logging.info("Generated {0} !".format(OUTPUT_FILE))
     a_input_file.close()
     b_input_file.close()
     output_file.close()
@@ -126,7 +126,7 @@ def split_data_to_file(dir, pos_file_name, pos_label, pos_max_train_index
     hppids_test_labels  = open(dir+"/hppids-test-labels.txt" , 'w')
 
     pos_file = "{0}/{1}".format(dir, pos_file_name)
-    print("Split {0} ...".format(pos_file))
+    logging.info("Split {0} ...".format(pos_file))
     positive_interaction_file = open(pos_file)
     index = 1
     line = positive_interaction_file.readline()
@@ -142,13 +142,13 @@ def split_data_to_file(dir, pos_file_name, pos_label, pos_max_train_index
                 hppids_test_labels.write(pos_label+'\n')
                 test_lines = test_lines + 1
         if index%1000 == 0:
-            print("finish index==" + str(index//1000))
+            logging.info("finish index==" + str(index//1000))
         index = index + 1
         line = positive_interaction_file.readline()
     positive_interaction_file.close()
 
     neg_file = "{0}/{1}".format(dir, neg_file_name)
-    print("Split {0} ...".format(neg_file))
+    logging.info("Split {0} ...".format(neg_file))
     negative_interaction_file = open(neg_file)
     index = 1
     line = negative_interaction_file.readline()
@@ -164,7 +164,7 @@ def split_data_to_file(dir, pos_file_name, pos_label, pos_max_train_index
                 hppids_test_labels.write(neg_label+'\n')
                 test_lines = test_lines + 1
         if index%1000 == 0:
-            print("finish index==" + str(index//1000))
+            logging.info("finish index==" + str(index//1000))
         index = index + 1
         line = negative_interaction_file.readline()
     negative_interaction_file.close()
@@ -261,7 +261,7 @@ def shuffle(dir, train_len, test_len):
 def convert_txt_to_bin(txt_file_name, bin_file_name, rows, columns, type, fmt):
     txt_file = open(txt_file_name)
     bin_file = open(bin_file_name, 'wb')
-    print("Converting "+txt_file_name+" to "+bin_file_name+" ...")
+    logging.info("Converting "+txt_file_name+" to "+bin_file_name+" ...")
     bytes = struct.pack('ii', rows, columns)
     bin_file.write(bytes)
     bytes_len = len(bytes)
@@ -277,10 +277,10 @@ def convert_txt_to_bin(txt_file_name, bin_file_name, rows, columns, type, fmt):
                 bin_file.write(bytes)
                 bytes_len = bytes_len + len(bytes)
         if index%1000 == 0:
-            print("finish index==" + str(index//1000))
+            logging.info("finish index==" + str(index//1000))
         index = index + 1
         line = txt_file.readline()
-    print("Converted bytes length= "+str(bytes_len))
+    logging.info("Converted bytes length= "+str(bytes_len))
     txt_file.close()
     bin_file.close()
 
@@ -297,6 +297,7 @@ def convert_all_txt_to_bin(dir
 
 def main():
     cwd = os.getcwd()
+    logging.basicConfig(filename=cwd+'/data/predict_PPI/all.log')
     infos = [("/data/predict_PPI/C.elegan", 3627)
             ,("/data/predict_PPI/Drosophila", 19777)
             ,("/data/predict_PPI/E.coli", 6258)
