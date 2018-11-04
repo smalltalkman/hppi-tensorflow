@@ -1,9 +1,31 @@
 {
+  "coding" : {
+    "ct"      : { "num_input" :   686, "num_classes" :  2 },
+    "ac"      : { "num_input" :   420, "num_classes" :  2 },
+    "ct+ac"   : { "num_input" :  1106, "num_classes" :  2 },
+    "ld"      : { "num_input" :  1260, "num_classes" :  2 },
+    "mos"     : { "num_input" :    58, "num_classes" :  2 }
+  },
   "data_sets" : {
-    "ct"      : { "num_input" :   686, "num_classes" :  2, "dir" : "data/02-ct-bin" },
-    "ac"      : { "num_input" :   420, "num_classes" :  2, "dir" : "data/03-ac-bin" },
-    "ld"      : { "num_input" :  1260, "num_classes" :  2, "dir" : "data/04-ld-bin" },
-    "mos"     : { "num_input" :    58, "num_classes" :  2, "dir" : "data/05-mos-bin" }
+    "ct"      : { "coding" :    "ct", "dir" : "data/02-ct-bin" },
+    "ac"      : { "coding" :    "ac", "dir" : "data/03-ac-bin" },
+    "ld"      : { "coding" :    "ld", "dir" : "data/04-ld-bin" },
+    "mos"     : { "coding" :   "mos", "dir" : "data/05-mos-bin" },
+    "c_elegan_ct"      : { "coding" :    "ct", "dir" : "data/predict_PPI/C.elegan/bin/ct" },
+    "c_elegan_ac"      : { "coding" :    "ac", "dir" : "data/predict_PPI/C.elegan/bin/ac" },
+    "c_elegan_ct+ac"   : { "coding" : "ct+ac", "dir" : "data/predict_PPI/C.elegan/bin/ct+ac" },
+    "drosophila_ct"    : { "coding" :    "ct", "dir" : "data/predict_PPI/Drosophila/bin/ct" },
+    "drosophila_ac"    : { "coding" :    "ac", "dir" : "data/predict_PPI/Drosophila/bin/ac" },
+    "drosophila_ct+ac" : { "coding" : "ct+ac", "dir" : "data/predict_PPI/Drosophila/bin/ct+ac" },
+    "e_coli_ct"        : { "coding" :    "ct", "dir" : "data/predict_PPI/E.coli/bin/ct" },
+    "e_coli_ac"        : { "coding" :    "ac", "dir" : "data/predict_PPI/E.coli/bin/ac" },
+    "e_coli_ct+ac"     : { "coding" : "ct+ac", "dir" : "data/predict_PPI/E.coli/bin/ct+ac" },
+    "human_ct"         : { "coding" :    "ct", "dir" : "data/predict_PPI/Human/bin/ct" },
+    "human_ac"         : { "coding" :    "ac", "dir" : "data/predict_PPI/Human/bin/ac" },
+    "human_ct+ac"      : { "coding" : "ct+ac", "dir" : "data/predict_PPI/Human/bin/ct+ac" },
+    "yeast_ct"         : { "coding" :    "ct", "dir" : "data/predict_PPI/Yeast/bin/ct" },
+    "yeast_ac"         : { "coding" :    "ac", "dir" : "data/predict_PPI/Yeast/bin/ac" },
+    "yeast_ct+ac"      : { "coding" : "ct+ac", "dir" : "data/predict_PPI/Yeast/bin/ct+ac" }
   },
   "models" : {
     "ct(686x2)_64_relu_Adam_0.01_dropout_0.txt" : 

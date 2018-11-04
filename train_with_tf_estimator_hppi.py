@@ -84,6 +84,7 @@ if __name__ == "__main__":
 
   model = configs['models'][target]
   data_set = configs['data_sets'][model['data_sets_info']]
+  coding = configs['coding'][data_set['coding']]
 
   # Training Parameters
   learning_rate = model['learning_rate'] # 0.001 # 0.01 => 0.001 => 0.0001
@@ -93,8 +94,8 @@ if __name__ == "__main__":
   times = model['times'] # 1
 
   # Network Parameters
-  num_input = data_set['num_input'] # 686 # HPPI data input
-  num_classes = data_set['num_classes'] # 2 # HPPI total classes
+  num_input = coding['num_input'] # 686 # HPPI data input
+  num_classes = coding['num_classes'] # 2 # HPPI total classes
   hidden_units = model['hidden_units'] # [256, 256, 256]
   activation_fn = tf.nn.relu
   optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
