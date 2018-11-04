@@ -169,6 +169,36 @@
     "ld(1260x2)_256x128x64x32_relu_Adam_0.0001_dropout_0.3.txt" : 
       { "data_sets_info" : "ld", "hidden_units" : [256,128,64,32], "learning_rate" : 0.0001, "dropout" : 0.3, "times" : 30 },
     "ld(1260x2)_256x128x64x32_relu_Adam_0.0001_dropout_0.5.txt" : 
-      { "data_sets_info" : "ld", "hidden_units" : [256,128,64,32], "learning_rate" : 0.0001, "dropout" : 0.5, "times" : 30 }
+      { "data_sets_info" : "ld", "hidden_units" : [256,128,64,32], "learning_rate" : 0.0001, "dropout" : 0.5, "times" : 30 },
+    "c_elegan_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "c_elegan_ct", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "c_elegan_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "c_elegan_ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "c_elegan_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "c_elegan_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "drosophila_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "drosophila_ct", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "drosophila_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "drosophila_ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "drosophila_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "drosophila_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "e_coli_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "e_coli_ct", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "e_coli_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "e_coli_ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "e_coli_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "e_coli_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "human_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "human_ct", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "human_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "human_ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "human_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "human_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "yeast_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "yeast_ct", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "yeast_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "yeast_ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "yeast_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "yeast_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 }
   }
 }
