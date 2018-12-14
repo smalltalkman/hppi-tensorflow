@@ -322,6 +322,17 @@ def main():
             ]
     for dir, ratio in infos:
         source_dir = cwd+dir
+        # summary
+        summary_filename = source_dir+'.txt'
+        if  os.path.exists(summary_filename) \
+        and os.stat(summary_filename).st_mtime>=os.stat(source_dir+"/Negative_protein_A.txt").st_mtime \
+        and os.stat(summary_filename).st_mtime>=os.stat(source_dir+"/Negative_protein_B.txt").st_mtime \
+        and os.stat(summary_filename).st_mtime>=os.stat(source_dir+"/Positive_protein_A.txt").st_mtime \
+        and os.stat(summary_filename).st_mtime>=os.stat(source_dir+"/Positive_protein_B.txt").st_mtime :
+          continue
+        with open(summary_filename, 'w') as summary_file:
+          summary_file.write("summary for: "+source_dir)
+        # continue
         # flat
         target_dir = source_dir+"/bin"
         if not os.path.exists(target_dir):
