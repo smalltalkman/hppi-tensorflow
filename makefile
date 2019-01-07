@@ -194,6 +194,11 @@ MOS_MODEL_RESULTS= \
 	model/result_of_tf_estimator_mos(58x2)_512x512x512_relu_Adam_0.01_dropout_0.csv \
 	model/result_of_tf_estimator_mos(58x2)_512x512x512x512_relu_Adam_0.01_dropout_0.csv \
 	model/result_of_tf_estimator_mos(58x2)_512x512x512x512x512_relu_Adam_0.01_dropout_0.csv \
+	model/result_of_tf_estimator_mos(58x2)_512x512x512_relu_Adam_0.01_dropout_0.1.csv \
+	model/result_of_tf_estimator_mos(58x2)_512x512x512_relu_Adam_0.01_dropout_0.3.csv \
+	model/result_of_tf_estimator_mos(58x2)_512x512x512_relu_Adam_0.01_dropout_0.5.csv \
+	model/result_of_tf_estimator_mos(58x2)_512x512x512_relu_Adam_0.01_dropout_0.7.csv \
+	model/result_of_tf_estimator_mos(58x2)_512x512x512_relu_Adam_0.01_dropout_0.9.csv \
 	model/result_of_tf_estimator_mos(58x2)_128_relu_Adam_0.001_dropout_0.csv \
 	model/result_of_tf_estimator_mos(58x2)_256_relu_Adam_0.001_dropout_0.csv \
 	model/result_of_tf_estimator_mos(58x2)_512_relu_Adam_0.001_dropout_0.csv \
