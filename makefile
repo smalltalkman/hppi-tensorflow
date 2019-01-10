@@ -111,6 +111,12 @@ CTAC_BIN_GENERATOR=09-to-final.py
 # CTAC_BIN_DATA_C=$(CTAC_BIN_DIR)/hppids-test-ppis.bin
 # CTAC_BIN_DATA_D=$(CTAC_BIN_DIR)/hppids-test-labels.bin
 
+CD_CT_ZIP=data/Benchmark_CD_CT.zip
+CD_AC_ZIP=data/Benchmark_CD_AC.zip
+CD_LD_ZIP=data/Benchmark_CD_LD.zip
+CD_MOS_ZIP=data/Benchmark_CD_MOS.zip
+CD_DATAS_STATUS=data/cd_datas_status
+
 PREDICT_PPI_ZIP=original/predict_PPI.zip
 PREDICT_PPI_DIR=data/predict_PPI
 PREDICT_PPI_STATUS=$(PREDICT_PPI_DIR)/status
@@ -312,6 +318,21 @@ $(CTAC_BIN_STATUS):$(CTAC_BIN_GENERATOR) $(CT_STATUS) $(AC_STATUS)
 	@touch -m $(CTAC_BIN_STATUS)
 	@echo "$(CTAC_BIN_DIR) is ok"
 
+$(CD_CT_ZIP):$(FLAT_DATA_C) $(FLAT_DATA_D)
+	python util_create_ppi_dataset.py -p "$(FLAT_DATA_C)" -n "$(FLAT_DATA_D)" -o "$(patsubst %.zip,%, $(CD_CT_ZIP))" -m ct -s 0.6
+$(CD_AC_ZIP):$(FLAT_DATA_C) $(FLAT_DATA_D)
+	python util_create_ppi_dataset.py -p "$(FLAT_DATA_C)" -n "$(FLAT_DATA_D)" -o "$(patsubst %.zip,%, $(CD_AC_ZIP))" -m ac -s 0.6
+$(CD_LD_ZIP):$(FLAT_DATA_C) $(FLAT_DATA_D)
+	python util_create_ppi_dataset.py -p "$(FLAT_DATA_C)" -n "$(FLAT_DATA_D)" -o "$(patsubst %.zip,%, $(CD_LD_ZIP))" -m ld -s 0.6
+$(CD_MOS_ZIP):$(FLAT_DATA_C) $(FLAT_DATA_D)
+	python util_create_ppi_dataset.py -p "$(FLAT_DATA_C)" -n "$(FLAT_DATA_D)" -o "$(patsubst %.zip,%, $(CD_MOS_ZIP))" -m mos -s 0.6
+$(CD_DATAS_STATUS):$(CD_CT_ZIP) $(CD_AC_ZIP) $(CD_LD_ZIP) $(CD_MOS_ZIP)
+	unzip -o $(CD_CT_ZIP) -d $(patsubst %.zip,%, $(CD_CT_ZIP))
+	unzip -o $(CD_AC_ZIP) -d $(patsubst %.zip,%, $(CD_AC_ZIP))
+	unzip -o $(CD_LD_ZIP) -d $(patsubst %.zip,%, $(CD_LD_ZIP))
+	unzip -o $(CD_MOS_ZIP) -d $(patsubst %.zip,%, $(CD_MOS_ZIP))
+	@touch -m $(CD_DATAS_STATUS)
+
 $(PREDICT_PPI_STATUS):$(PREDICT_PPI_GENERATOR) $(PREDICT_PPI_ZIP)
 	unzip -o $(PREDICT_PPI_ZIP) -d $(PREDICT_PPI_DIR)
 	mkdir -p $(PREDICT_PPI_DIR)/Rice
@@ -322,6 +343,7 @@ $(PREDICT_PPI_STATUS):$(PREDICT_PPI_GENERATOR) $(PREDICT_PPI_ZIP)
 
 .PHONY:data
 data: $(CT_BIN_STATUS) $(AC_BIN_STATUS) $(LD_BIN_STATUS) $(MOS_BIN_STATUS) $(MOS0_BIN_STATUS) $(CTAC_BIN_STATUS) \
+	$(CD_DATAS_STATUS) \
 	$(PREDICT_PPI_STATUS)
 
 model/%.txt:
