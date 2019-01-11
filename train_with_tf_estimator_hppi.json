@@ -28,7 +28,11 @@
     "yeast_ct+ac"      : { "coding" : "ct+ac", "dir" : "data/predict_PPI/Yeast/bin/ct+ac" },
     "rice_ct"         : { "coding" :    "ct", "dir" : "data/predict_PPI/Rice/bin/ct" },
     "rice_ac"         : { "coding" :    "ac", "dir" : "data/predict_PPI/Rice/bin/ac" },
-    "rice_ct+ac"      : { "coding" : "ct+ac", "dir" : "data/predict_PPI/Rice/bin/ct+ac" }
+    "rice_ct+ac"      : { "coding" : "ct+ac", "dir" : "data/predict_PPI/Rice/bin/ct+ac" },
+    "cd_ct"      : { "coding" :    "ct", "dir" : "data/Benchmark_CD_CT" },
+    "cd_ac"      : { "coding" :    "ac", "dir" : "data/Benchmark_CD_AC" },
+    "cd_ld"      : { "coding" :    "ld", "dir" : "data/Benchmark_CD_LD" },
+    "cd_mos"     : { "coding" :   "mos", "dir" : "data/Benchmark_CD_MOS" }
   },
   "models" : {
     "ct(686x2)_64_relu_Adam_0.01_dropout_0.txt" : 
@@ -244,6 +248,14 @@
     "rice_ac(420x2)_64_relu_Adam_0.0001_dropout_0.txt" : 
       { "data_sets_info" : "rice_ac", "hidden_units" : [64], "learning_rate" : 0.0001, "dropout" : 0, "times" : 30 },
     "rice_ac(420x2)_64_relu_Adam_1e-05_dropout_0.txt" : 
-      { "data_sets_info" : "rice_ac", "hidden_units" : [64], "learning_rate" : 0.00001, "dropout" : 0, "times" : 30 }
+      { "data_sets_info" : "rice_ac", "hidden_units" : [64], "learning_rate" : 0.00001, "dropout" : 0, "times" : 30 },
+    "cd_mos(58x2)_64_relu_Adam_0.01_dropout_0.txt" : 
+      { "data_sets_info" : "cd_mos", "hidden_units" : [64], "learning_rate" : 0.01, "dropout" : 0, "times" : 30 },
+    "cd_mos(58x2)_64_relu_Adam_0.001_dropout_0.txt" : 
+      { "data_sets_info" : "cd_mos", "hidden_units" : [64], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "cd_mos(58x2)_64_relu_Adam_0.0001_dropout_0.txt" : 
+      { "data_sets_info" : "cd_mos", "hidden_units" : [64], "learning_rate" : 0.0001, "dropout" : 0, "times" : 30 },
+    "cd_mos(58x2)_64_relu_Adam_1e-05_dropout_0.txt" : 
+      { "data_sets_info" : "cd_mos", "hidden_units" : [64], "learning_rate" : 0.00001, "dropout" : 0, "times" : 30 }
   }
 }
