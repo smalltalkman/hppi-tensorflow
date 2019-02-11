@@ -1,0 +1,5 @@
+* text eol=lf
+
+*.gz binary
+*.zip binary
+*.xls binary
