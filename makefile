@@ -265,6 +265,7 @@ PREDICT_PPI_RESULTS= \
 	model/result_of_tf_estimator_yeast_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
 
 MODEL_RESULTS=$(CT_MODEL_RESULTS) $(AC_MODEL_RESULTS) $(LD_MODEL_RESULTS) $(MOS_MODEL_RESULTS) $(CD_RESULTS) $(PREDICT_PPI_RESULTS)
+FINAL_RESULTS=$(subst model/,results/, $(MODEL_RESULTS))
 
 .PHONY: default
 default: main
@@ -377,10 +378,14 @@ model/%.txt:
 $(MODEL_RESULTS):%.csv:%.txt
 	python util_txt_2_csv.py "$<" "$@"
 
-.PHONY:model
-model: $(MODEL_RESULTS)
+$(FINAL_RESULTS):results/%:model/%
 	mkdir -p results
-	cp -rfp model/result_of_tf_estimator_*.csv results
+	cp -fp "$<" "$@"
+
+.PHONY:model
+model: $(FINAL_RESULTS)
+	# mkdir -p results
+	# cp -rfp model/result_of_tf_estimator_*.csv results
 
 .PHONY:main
 main: data model
