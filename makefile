@@ -258,6 +258,11 @@ PREDICT_PPI_RESULTS= \
 	model/result_of_tf_estimator_rice_ac(420x2)_64_relu_Adam_0.001_dropout_0.csv \
 	model/result_of_tf_estimator_rice_ac(420x2)_64_relu_Adam_0.0001_dropout_0.csv \
 	model/result_of_tf_estimator_rice_ac(420x2)_64_relu_Adam_1e-05_dropout_0.csv \
+	model/result_of_tf_estimator_c_elegan_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
+	model/result_of_tf_estimator_drosophila_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
+	model/result_of_tf_estimator_e_coli_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
+	model/result_of_tf_estimator_human_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
+	model/result_of_tf_estimator_yeast_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
 
 MODEL_RESULTS=$(CT_MODEL_RESULTS) $(AC_MODEL_RESULTS) $(LD_MODEL_RESULTS) $(MOS_MODEL_RESULTS) $(CD_RESULTS) $(PREDICT_PPI_RESULTS)
 

@@ -233,6 +233,16 @@
       { "data_sets_info" : "yeast_ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
     "yeast_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.txt" : 
       { "data_sets_info" : "yeast_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "c_elegan_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.txt" : 
+      { "data_sets_info" : "c_elegan_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.7, "times" : 30 },
+    "drosophila_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.txt" : 
+      { "data_sets_info" : "drosophila_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.7, "times" : 30 },
+    "e_coli_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.txt" : 
+      { "data_sets_info" : "e_coli_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.7, "times" : 30 },
+    "human_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.txt" : 
+      { "data_sets_info" : "human_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.7, "times" : 30 },
+    "yeast_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.txt" : 
+      { "data_sets_info" : "yeast_ct+ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0.7, "times" : 30 },
     "rice_ct(686x2)_64_relu_Adam_0.01_dropout_0.txt" : 
       { "data_sets_info" : "rice_ct", "hidden_units" : [64], "learning_rate" : 0.01, "dropout" : 0, "times" : 30 },
     "rice_ct(686x2)_64_relu_Adam_0.001_dropout_0.txt" : 
