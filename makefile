@@ -385,8 +385,14 @@ copy_results_to_model:
 	mkdir -p model
 	cp -rup results/result_of_tf_estimator_*.csv model
 
+.PHONY:update_model
+update_model:
+	@for model_result in `echo "$(MODEL_RESULTS)"` ; do \
+		[ -e "$${model_result/%.csv/.txt}" ] && python util_txt_2_csv.py "$${model_result/%.csv/.txt}" "$${model_result}" || true ; \
+	done
+
 .PHONY:model
-model: copy_results_to_model $(FINAL_RESULTS)
+model: copy_results_to_model update_model $(FINAL_RESULTS)
 	# mkdir -p results
 	# cp -rfp model/result_of_tf_estimator_*.csv results
 
