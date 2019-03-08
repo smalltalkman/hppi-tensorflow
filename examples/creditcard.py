@@ -1,3 +1,7 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 import pandas as pd
 import numpy as np
 from keras.models import Sequential
@@ -21,29 +25,28 @@ data = pd.read_csv(r'creditcard.csv')
 df = pd.DataFrame(data)
 # print(df.head())
 # print(df.describe())
-df_corr = df.corr()
 #-------------------------------------------------------------------------------
+df_corr = df.corr()
 # plt.figure(figsize=(15,10))
 # seaborn.heatmap(df_corr)
 # seaborn.set(font_scale=2)
 # plt.title('Heatmap correlation')
 # plt.show()
-#-------------------------------------------------------------------------------
 rank = df_corr['Class']
 df_rank = pd.DataFrame(rank)
 df_rank = np.abs(df_rank).sort_values(by='Class',ascending=False)
 df_rank.dropna(inplace=True)
-df_fraud = df[df['Class'] == 1]
 #-------------------------------------------------------------------------------
+df_fraud = df[df['Class'] == 1]
 # plt.figure(figsize=(15,10))
 # plt.scatter(df_fraud['Time'], df_fraud['Amount'])
 # plt.title('Scratter plot amount fraud')
 # plt.show()
 # nb_big_fraud = df_fraud[df_fraud['Amount'] > 1000].shape[0]
 # print('There are only '+ str(nb_big_fraud) + ' frauds where the amount was bigger than 1000 over ' + str(df_fraud.shape[0]) + ' frauds')
+#-------------------------------------------------------------------------------
 mu = df_fraud['Amount'].mean()
 sigma = df_fraud['Amount'].std()
-#-------------------------------------------------------------------------------
 # fig, ax = plt.subplots(figsize=(15,10))
 # n, bins, patches = ax.hist(df_fraud['Amount'], 30, normed=1)
 # y = mlab.normpdf(bins, mu, sigma)
@@ -52,6 +55,7 @@ sigma = df_fraud['Amount'].std()
 # ax.set_ylabel('Probability density')
 # ax.set_title('Histogram amount fraud')
 # plt.show()
+#-------------------------------------------------------------------------------
 
 def model():
   global network_history
@@ -109,11 +113,14 @@ X_train_rank = np.asarray(X_train_rank)
 X_test_rank = df_test[df_rank.index[1:11]]
 X_test_rank = np.asarray(X_test_rank)
 
+#-------------------------------------------------------------------------------
 model = model()
 model_rank = model_rank()
 
+#-------------------------------------------------------------------------------
 def plot_history(network_history,title='Loss and accuracy (Keras model)'):
   plt.figure(figsize=(15,10))
+
   plt.subplot(211)
   plt.title(title)
   plt.xlabel('Epochs')
@@ -128,17 +135,20 @@ def plot_history(network_history,title='Loss and accuracy (Keras model)'):
   plt.plot(network_history.history['acc'])
   #plt.plot(network_history.history['val_acc'])
   plt.legend(['Training', 'Validation'], loc='lower right')
+
   plt.show()
 
 plot_history(network_history)
 plot_history(network_history_rank, 'Loss and accuracy with top 10 ranked (Keras model)')
 
+#-------------------------------------------------------------------------------
 model.evaluate(X_test, y_test)
 model_rank.evaluate(X_test_rank,y_test)
 
 prediction = model.predict(X_test)
 prediction_rank = model_rank.predict(X_test_rank)
 
+#-------------------------------------------------------------------------------
 plt.figure(figsize=(15,8))
 plt.subplot(121)
 plt.title('Histogram prediction')
@@ -148,6 +158,7 @@ plt.title('Histogram prediction rank')
 plt.hist(prediction_rank)
 plt.show()
 
+#-------------------------------------------------------------------------------
 prediction_bin = prediction > 0.5
 prediction_bin = prediction_bin.astype(int)
 confusion_matrix(y_test, prediction_bin)
@@ -156,6 +167,7 @@ prediction_rank_bin = prediction_rank > 0.5
 prediction_rank_bin = prediction_rank_bin.astype(int)
 confusion_matrix(y_test, prediction_rank_bin)
 
+#-------------------------------------------------------------------------------
 df_test_0_only = df_test_0.sample(200)
 X_test_0 = df_test_0_only.drop(['Time','Class'], axis=1)
 X_test_0_rank = df_test_0_only[df_rank.index[1:11]]
@@ -187,6 +199,7 @@ plt.hist(prediction_0_rank)
 plt.title('Histogram prediction rank')
 plt.show()
 
+#-------------------------------------------------------------------------------
 X_test_all = df_test_all.drop(['Time', 'Class'],axis=1)
 X_test_all_rank = df_test_all[df_rank.index[1:11]]
 y_test_all = df_test_all['Class']
@@ -218,8 +231,10 @@ prediction_rank_all_bin = prediction_all_rank > 0.5
 prediction_rank_all_bin = prediction_rank_all_bin.astype(int)
 confusion_matrix(y_test_all, prediction_rank_all_bin)
 
+#-------------------------------------------------------------------------------
 random_forest = RandomForestClassifier(n_estimators=15,)
 random_forest.fit(X_train,y_train)
+
 random_forest.score(X_test,y_test)
 prediction_RF = random_forest.predict(X_test)
 confusion_matrix(y_test, prediction_RF)
@@ -230,8 +245,10 @@ random_forest.score(X_test_all,y_test_all)
 prediction_RF_all = random_forest.predict(X_test_all)
 confusion_matrix(y_test_all, prediction_RF_all)
 
+#-------------------------------------------------------------------------------
 AdaBoost = AdaBoostClassifier(learning_rate=0.1)
 AdaBoost.fit(X_train, y_train)
+
 AdaBoost.score(X_test, y_test)
 prediction_AdaBoost = AdaBoost.predict(X_test)
 confusion_matrix(y_test, prediction_AdaBoost)
@@ -242,10 +259,12 @@ AdaBoost.score(X_test_all,y_test_all)
 prediction_AdaBoost_all = AdaBoost.predict(X_test_all)
 confusion_matrix(y_test_all, prediction_AdaBoost_all)
 
+#-------------------------------------------------------------------------------
 classifier = svm.SVC(kernel='linear', C=0.01)
 classifier.fit(X_train, y_train)
-prediction_SVM = classifier.predict(X_test)
+
 classifier.score(X_test,y_test)
+prediction_SVM = classifier.predict(X_test)
 confusion_matrix(y_test, prediction_SVM)
 classifier.score(X_test_0,y_test_0)
 prediction_SVM_0 = classifier.predict(X_test_0)
