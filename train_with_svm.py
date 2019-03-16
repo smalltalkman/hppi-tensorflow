@@ -2,14 +2,12 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import os, hppi
+import os, pandas, hppi
 from sklearn import svm
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, roc_curve, auc, average_precision_score, recall_score, log_loss
 
-def train_and_test(sub_dir):
+def train_and_test(data_sets_dir):
   # Load datasets.
-  cwd = os.getcwd()
-  data_sets_dir = cwd + "/data/" + sub_dir
   hppids = hppi.read_data_sets(data_sets_dir, one_hot=False)
   train_datas, train_labels, test_datas, test_labels = hppids.shuffle().split()
 
@@ -24,14 +22,33 @@ def train_and_test(sub_dir):
 
   # test
   mean_accuracy = classifier.score(test_datas, test_labels)
-  print("mean_accuracy=", mean_accuracy)
+  # print("mean_accuracy=", mean_accuracy)
 
   # predict
-  # prediction_SVM = classifier.predict(test_datas)
+  prediction_SVM = classifier.predict(test_datas)
   # confusion_matrix(test_labels, prediction_SVM)
 
+  fpr, tpr, thresholds = roc_curve(test_labels, prediction_SVM)
+
+  return (mean_accuracy,
+          auc(fpr, tpr),
+          average_precision_score(test_labels, prediction_SVM),
+          recall_score(test_labels, prediction_SVM),
+          log_loss(test_labels, prediction_SVM),
+          )
+
+def do_with(sub_dir):
+  cwd = os.getcwd()
+  df = pandas.DataFrame(columns=('accuracy', 'auc', 'average_precision', 'recall', 'log_loss', ))
+  df.loc[len(df)] = train_and_test(cwd + "/data/" + sub_dir)
+  df.to_csv(cwd + '/results/svm-' + sub_dir + '.csv')
+
 def main():
-  train_and_test("09-hppids")
+  do_with("02-ct-bin")
+  do_with("03-ac-bin")
+  do_with("04-ld-bin")
+  do_with("05-mos-bin")
+  do_with("09-hppids")
 
 if __name__ == "__main__":
     main()
