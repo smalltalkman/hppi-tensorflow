@@ -6,10 +6,10 @@ import os, hppi
 from sklearn import svm
 from sklearn.metrics import confusion_matrix
 
-def main():
+def train_and_test(sub_dir):
   # Load datasets.
   cwd = os.getcwd()
-  data_sets_dir = cwd + "/data/09-hppids"
+  data_sets_dir = cwd + "/data/" + sub_dir
   hppids = hppi.read_data_sets(data_sets_dir, one_hot=False)
   train_datas, train_labels, test_datas, test_labels = hppids.shuffle().split()
 
@@ -29,6 +29,9 @@ def main():
   # predict
   # prediction_SVM = classifier.predict(test_datas)
   # confusion_matrix(test_labels, prediction_SVM)
+
+def main():
+  train_and_test("09-hppids")
 
 if __name__ == "__main__":
     main()
