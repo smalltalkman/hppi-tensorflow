@@ -11,10 +11,10 @@ def train_and_test(data_sets_dir):
   hppids = hppi.read_data_sets(data_sets_dir, one_hot=False)
   train_datas, train_labels, test_datas, test_labels = hppids.shuffle().split()
 
-  train_datas  = train_datas [:10]
-  train_labels = train_labels[:10]
-  test_datas   = test_datas  [:10]
-  test_labels  = test_labels [:10]
+  # train_datas  = train_datas [:100]
+  # train_labels = train_labels[:100]
+  # test_datas   = test_datas  [:100]
+  # test_labels  = test_labels [:100]
 
   # train
   classifier = RandomForestClassifier(n_estimators=15,)
