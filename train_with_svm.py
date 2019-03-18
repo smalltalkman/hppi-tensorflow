@@ -25,16 +25,16 @@ def train_and_test(data_sets_dir):
   # print("mean_accuracy=", mean_accuracy)
 
   # predict
-  prediction_SVM = classifier.predict(test_datas)
-  # confusion_matrix(test_labels, prediction_SVM)
+  prediction = classifier.predict(test_datas)
+  # confusion_matrix(test_labels, prediction)
 
-  fpr, tpr, thresholds = roc_curve(test_labels, prediction_SVM)
+  fpr, tpr, thresholds = roc_curve(test_labels, prediction)
 
   return (mean_accuracy,
           auc(fpr, tpr),
-          average_precision_score(test_labels, prediction_SVM),
-          recall_score(test_labels, prediction_SVM),
-          log_loss(test_labels, prediction_SVM),
+          average_precision_score(test_labels, prediction),
+          recall_score(test_labels, prediction),
+          log_loss(test_labels, prediction),
           )
 
 def do_with(sub_dir):
