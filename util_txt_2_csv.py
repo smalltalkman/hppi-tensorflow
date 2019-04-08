@@ -11,6 +11,7 @@ COLUMNS = [
     'label/mean',
     'prediction/mean',
     'train_time',
+    'test_time',
 ]
 
 SEPARATOR = ','

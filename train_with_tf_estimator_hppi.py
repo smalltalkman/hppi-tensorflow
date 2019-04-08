@@ -45,12 +45,15 @@ def main():
   train_time = (end_time-begin_time).total_seconds()/num_steps*100
 
   # Define the test inputs
+  begin_time = datetime.now()
   test_input_fn = tf.estimator.inputs.numpy_input_fn(
       x={"x": hppids.test.datas},
       y=hppids.test.labels,
       batch_size=batch_size,
       num_epochs=1,
       shuffle=False)
+  end_time = datetime.now()
+  test_time = (end_time-begin_time).total_seconds()
 
   # Evaluate accuracy.
   #accuracy_score = classifier.evaluate(input_fn=test_input_fn)["accuracy"]
@@ -66,6 +69,7 @@ def main():
              + ", loss = {0:8g}".format(scores["loss"]) \
              + ", prediction/mean = {0:8g}".format(scores["prediction/mean"]) \
              + ", train_time = {0:8g}".format(train_time) \
+             + ", test_time = {0:8g}".format(test_time) \
 
   #print("\nTest Accuracy: {0:f}\n".format(accuracy_score))
   print("\nTest scores: {0}\n".format(scores_str))
