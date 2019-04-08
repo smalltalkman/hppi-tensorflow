@@ -372,29 +372,15 @@ data: $(CT_BIN_STATUS) $(AC_BIN_STATUS) $(LD_BIN_STATUS) $(MOS_BIN_STATUS) $(MOS
 	$(CD_DATAS_STATUS) \
 	$(PREDICT_PPI_STATUS)
 
-model/%.csv:
-	python train_with_tf_estimator_hppi.py `echo "$(patsubst %.csv,%, $@)"|cut -c30-`
-	python util_txt_2_csv.py "$(patsubst %.csv,%.txt,$@)" "$@"
+model/%.txt:
+	python train_with_tf_estimator_hppi.py `echo "$(patsubst %.txt,%, $@)"|cut -c30-`
 
-$(FINAL_RESULTS):results/%:model/%
+$(FINAL_RESULTS):results/%.csv:model/%.txt
 	mkdir -p results
-	cp -fp "$<" "$@"
-
-.PHONY:copy_results_to_model
-copy_results_to_model:
-	mkdir -p model
-	cp -rup results/result_of_tf_estimator_*.csv model
-
-.PHONY:update_model
-update_model:
-	@for model_result in `echo "$(MODEL_RESULTS)"` ; do \
-		[ -e "$${model_result/%.csv/.txt}" ] && python util_txt_2_csv.py "$${model_result/%.csv/.txt}" "$${model_result}" || true ; \
-	done
+	python util_txt_2_csv.py "$<" "$@"
 
 .PHONY:model
-model: copy_results_to_model update_model $(FINAL_RESULTS)
-	# mkdir -p results
-	# cp -rfp model/result_of_tf_estimator_*.csv results
+model: $(FINAL_RESULTS)
 
 .PHONY:main
 main: data model
