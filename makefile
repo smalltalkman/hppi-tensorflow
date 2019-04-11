@@ -233,6 +233,10 @@ CD_RESULTS= \
 	model/result_of_tf_estimator_cd_mos(58x2)_512x512x512x512_relu_Adam_0.001_dropout_0.5.csv \
 	model/result_of_tf_estimator_cd_mos(58x2)_512x512x512x512_relu_Adam_0.001_dropout_0.7.csv \
 	model/result_of_tf_estimator_cd_mos(58x2)_512x512x512x512_relu_Adam_0.001_dropout_0.9.csv \
+	\
+	model/result_of_tf_estimator_cd_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_cd_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0.csv \
+	model/result_of_tf_estimator_cd_ld(1260x2)_256x256x256_relu_Adam_0.001_dropout_0.csv \
 
 PREDICT_PPI_RESULTS= \
 	model/result_of_tf_estimator_c_elegan_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0.csv \

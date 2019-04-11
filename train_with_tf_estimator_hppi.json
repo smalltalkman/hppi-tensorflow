@@ -292,6 +292,12 @@
     "cd_mos(58x2)_512x512x512x512_relu_Adam_0.001_dropout_0.7" : 
       { "data_sets_info" : "cd_mos", "hidden_units" : [512,512,512,512], "learning_rate" : 0.001, "dropout" : 0.7, "times" : 30 },
     "cd_mos(58x2)_512x512x512x512_relu_Adam_0.001_dropout_0.9" : 
-      { "data_sets_info" : "cd_mos", "hidden_units" : [512,512,512,512], "learning_rate" : 0.001, "dropout" : 0.9, "times" : 30 }
+      { "data_sets_info" : "cd_mos", "hidden_units" : [512,512,512,512], "learning_rate" : 0.001, "dropout" : 0.9, "times" : 30 },
+    "cd_ct(686x2)_256x256x256_relu_Adam_0.001_dropout_0" : 
+      { "data_sets_info" : "cd_ct", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "cd_ac(420x2)_256x256x256_relu_Adam_0.001_dropout_0" : 
+      { "data_sets_info" : "cd_ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
+    "cd_ld(1260x2)_256x256x256_relu_Adam_0.001_dropout_0" : 
+      { "data_sets_info" : "cd_ld", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 }
   }
 }
