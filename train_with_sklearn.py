@@ -11,7 +11,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix, roc_curve, auc, average_precision_score, recall_score, log_loss
 
 classifiers = {
-  'svm' : svm.SVC(kernel='linear', C=0.01),
+  'svm' : svm.SVC(kernel='rbf', C=0.01),
   'random_forest' : RandomForestClassifier(n_estimators=15,),
   'ada_boost' : AdaBoostClassifier(learning_rate=0.1),
   'decision_tree' : DecisionTreeClassifier(random_state=0),
