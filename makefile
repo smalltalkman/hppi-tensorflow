@@ -386,5 +386,13 @@ $(FINAL_RESULTS):results/%.csv:model/%.txt
 .PHONY:model
 model: $(FINAL_RESULTS)
 
+.PHONY:sklearn
+sklearn:
+	python train_with_sklearn.py svm
+	python train_with_sklearn.py random_forest
+	python train_with_sklearn.py ada_boost
+	python train_with_sklearn.py decision_tree
+	python train_with_sklearn.py kneighbors
+
 .PHONY:main
-main: data model
+main: data model sklearn
