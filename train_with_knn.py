@@ -8,8 +8,7 @@ import os, pandas, hppi
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix, roc_curve, auc, average_precision_score, recall_score, log_loss
 
-def train_and_test(data_sets_dir, classifier):
-  # Load datasets.
+def load_data_sets(data_sets_dir):
   hppids = hppi.read_data_sets(data_sets_dir, one_hot=False)
   train_datas, train_labels, test_datas, test_labels = hppids.shuffle().split()
 
@@ -17,6 +16,12 @@ def train_and_test(data_sets_dir, classifier):
   # train_labels = train_labels[:100]
   # test_datas   = test_datas  [:100]
   # test_labels  = test_labels [:100]
+
+  return train_datas, train_labels, test_datas, test_labels
+
+def train_and_test(data_sets, classifier):
+  # Load datasets.
+  train_datas, train_labels, test_datas, test_labels = data_sets
 
   # train
   begin_time = datetime.now()
@@ -51,13 +56,13 @@ def train_and_test(data_sets_dir, classifier):
 
 def do_with(sub_dir):
   cwd = os.getcwd()
+  data_sets = load_data_sets(cwd + "/data/" + sub_dir)
   df = pandas.DataFrame(columns=('neighbors', 'accuracy', 'auc', 'average_precision', 'recall', 'log_loss', 'train_time', 'test_time', 'predict_time', ))
   for n_neighbors in range(1, 11):
-    df.loc[len(df)] = (n_neighbors,)+train_and_test(cwd + "/data/" + sub_dir, KNeighborsClassifier(n_neighbors=n_neighbors))
+    df.loc[len(df)] = (n_neighbors,)+train_and_test(data_sets, KNeighborsClassifier(n_neighbors=n_neighbors))
   df.to_csv(cwd + '/results/knn-' + sub_dir + '.csv')
 
 def main():
-
   do_with("02-ct-bin" )
   do_with("03-ac-bin" )
   do_with("04-ld-bin" )
