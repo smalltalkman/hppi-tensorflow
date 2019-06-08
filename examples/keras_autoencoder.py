@@ -32,24 +32,45 @@ def load_datas():
 
   return x_train, x_test
 
+# use Matplotlib (don't ask)
+import matplotlib.pyplot as plt
+
+def plot_history(network_history, title='Loss and accuracy (Keras model)'):
+  plt.figure(figsize=(15,10))
+
+  plt.subplot(211)
+  plt.title(title)
+  # plt.xlabel('Epochs')
+  plt.ylabel('Loss')
+  plt.plot(network_history.history['loss'])
+  plt.plot(network_history.history['val_loss'])
+  plt.legend(['Training', 'Validation'])
+
+  plt.subplot(212)
+  plt.xlabel('Epochs')
+  plt.ylabel('Accuracy')
+  plt.plot(network_history.history['acc'])
+  plt.plot(network_history.history['val_acc'])
+  plt.legend(['Training', 'Validation'], loc='lower right')
+
+  plt.show()
+
 autoencoder, encoder, decoder = create_autoencoder(784, 32)
-autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
+autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy', metrics=['accuracy'])
 
 x_train, x_test = load_datas()
 
-autoencoder.fit(x_train, x_train,
+autoencoder_history = autoencoder.fit(x_train, x_train,
                 epochs=50,
                 batch_size=256,
                 shuffle=True,
                 validation_data=(x_test, x_test))
+plot_history(autoencoder_history)
 
 # encode and decode some digits
 # note that we take them from the *test* set
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
-
-# use Matplotlib (don't ask)
-import matplotlib.pyplot as plt
 
 n = 10  # how many digits we will display
 plt.figure(figsize=(20, 4))
