@@ -1,3 +1,6 @@
+import numpy as np
+np.random.seed(1337)  # for reproducibility 
+
 from keras.layers import Input, Dense
 from keras.models import Model
 
@@ -6,12 +9,15 @@ def create_autoencoder(dims):
 
   encoded = input
   for i in range(1, len(dims)):
-    encoded = Dense(dims[i], activation='relu')(encoded)
+    if i == len(dims)-1:
+      encoded = Dense(dims[i])(encoded)
+    else:
+      encoded = Dense(dims[i], activation='relu')(encoded)
 
   decoded = encoded
   for i in range(-2, -len(dims)-1, -1):
     if i == -len(dims):
-      decoded = Dense(dims[i], activation='sigmoid')(decoded)
+      decoded = Dense(dims[i], activation='tanh')(decoded)
     else:
       decoded = Dense(dims[i], activation='relu')(decoded)
 
@@ -24,10 +30,10 @@ def create_autoencoder(dims):
   return autoencoder, encoder
 
 from keras.datasets import mnist
-import numpy as np
+# import numpy as np
 
 def load_datas():
-  (x_train, _), (x_test, _) = mnist.load_data()
+  (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
   x_train = x_train.astype('float32') / 255.
   x_test  = x_test .astype('float32') / 255.
@@ -38,7 +44,7 @@ def load_datas():
   # print x_train.shape
   # print x_test.shape
 
-  return x_train, x_test
+  return x_train, y_train, x_test, y_test
 
 # use Matplotlib (don't ask)
 import matplotlib.pyplot as plt
@@ -63,17 +69,23 @@ def plot_history(network_history, title='Loss and accuracy (Keras model)'):
 
   plt.show()
 
-autoencoder, encoder = create_autoencoder([784, 128, 64, 32])
-autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy', metrics=['accuracy'])
+autoencoder, encoder = create_autoencoder([784, 128, 64, 10, 2])
+autoencoder.compile(optimizer='adam', loss='mse', metrics=['accuracy'])
 
-x_train, x_test = load_datas()
+x_train, y_train, x_test, y_test = load_datas()
 
 autoencoder_history = autoencoder.fit(x_train, x_train,
-                epochs=100,
+                epochs=10,
                 batch_size=256,
                 shuffle=True,
                 validation_data=(x_test, x_test))
 plot_history(autoencoder_history)
+
+# plotting
+encoded_imgs = encoder.predict(x_test)
+plt.scatter(encoded_imgs[:, 0], encoded_imgs[:, 1], c=y_test,s=3)
+plt.colorbar()
+plt.show()
 
 # encode and decode some digits
 # note that we take them from the *test* set
