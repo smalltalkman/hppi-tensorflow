@@ -14,6 +14,10 @@ def create_autoencoder(input_dim, encoding_dim):
   decoder_layer = autoencoder.layers[-1]
   decoder       = Model(encoded_input, decoder_layer(encoded_input))
 
+  autoencoder.summary()
+  encoder.summary()
+  decoder.summary()
+
   return autoencoder, encoder, decoder
 
 from keras.datasets import mnist

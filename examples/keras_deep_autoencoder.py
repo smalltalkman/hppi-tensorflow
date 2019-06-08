@@ -1,23 +1,27 @@
 from keras.layers import Input, Dense
 from keras.models import Model
 
-def create_autoencoder(input_dim, encoding_dim):
-  input   = Input(shape=(input_dim,))
-  encoded = Dense(encoding_dim, activation='relu')(input)
-  decoded = Dense(input_dim, activation='sigmoid')(encoded)
+def create_autoencoder(dims):
+  input   = Input(shape=(dims[0],))
+
+  encoded = input
+  for i in range(1, len(dims)):
+    encoded = Dense(dims[i], activation='relu')(encoded)
+
+  decoded = encoded
+  for i in range(-2, -len(dims)-1, -1):
+    if i == -len(dims):
+      decoded = Dense(dims[i], activation='sigmoid')(decoded)
+    else:
+      decoded = Dense(dims[i], activation='relu')(decoded)
 
   autoencoder = Model(input, decoded)
   encoder     = Model(input, encoded)
 
-  encoded_input = Input(shape=(encoding_dim,))
-  decoder_layer = autoencoder.layers[-1]
-  decoder       = Model(encoded_input, decoder_layer(encoded_input))
-
   autoencoder.summary()
   encoder.summary()
-  decoder.summary()
 
-  return autoencoder, encoder, decoder
+  return autoencoder, encoder
 
 from keras.datasets import mnist
 import numpy as np
@@ -59,7 +63,7 @@ def plot_history(network_history, title='Loss and accuracy (Keras model)'):
 
   plt.show()
 
-autoencoder, encoder, decoder = create_autoencoder(784, 32)
+autoencoder, encoder = create_autoencoder([784, 128, 64, 32])
 autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy', metrics=['accuracy'])
 
 x_train, x_test = load_datas()
@@ -73,8 +77,7 @@ plot_history(autoencoder_history)
 
 # encode and decode some digits
 # note that we take them from the *test* set
-encoded_imgs = encoder.predict(x_test)
-decoded_imgs = decoder.predict(encoded_imgs)
+decoded_imgs = autoencoder.predict(x_test)
 
 n = 10  # how many digits we will display
 plt.figure(figsize=(20, 4))
