@@ -1,7 +1,7 @@
 RAP-MSU.csv
 IRGSP.csv
-uniprot-*-ids/
-uniprot-*-tabs/
+# uniprot-*-ids/
+# uniprot-*-tabs/
 Subcellular-localization-RAP.csv
 # Positive_protein_A.txt
 # Positive_protein_B.txt
