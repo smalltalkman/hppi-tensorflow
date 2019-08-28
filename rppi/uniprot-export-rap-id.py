@@ -32,6 +32,10 @@ def export_rap_id_of(uniprot, limit):
   # result.to_csv(uniprot+'.rap_id', index=False)
   return result
 
+args = get_args()
+output_file = args.output
+limit = args.limit
+
 prefixs = [ 
 'uniprot-20181210-Oryza sativa subsp japonica', 
 ]
@@ -46,17 +50,11 @@ locations = [
 'vacuole', 
 ]
 
-args = get_args()
-output_file = args.output
-limit = args.limit
-
 for prefix in prefixs:
-  results = []
   all = pandas.DataFrame(columns=('rap_id', ))
   descartes_all = pandas.DataFrame(columns=('rap_id_x', 'rap_id_y', ))
   for location in locations:
     result = export_rap_id_of('./'+prefix+'-tabs/'+prefix+'-'+location, limit)
-    results.append(result)
     all = pandas.concat([all, result])
     all = all.drop_duplicates()
     descartes_all = pandas.concat([descartes_all, descartes(result, result)])

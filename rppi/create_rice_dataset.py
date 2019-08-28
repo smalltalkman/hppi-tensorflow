@@ -5,23 +5,13 @@ from Bio import SeqIO
 import re
 import argparse
 
-def load_rap_msu(input_dir, output_dir):
-  source = input_dir +"RAP-MSU_2017-08-04.txt"
-  target = output_dir+"RAP-MSU.csv"
-  if os.path.exists(target) and os.stat(target).st_mtime>=os.stat(source).st_mtime:
-    df = pandas.read_csv(target)
-    return df
-  rap_msu = pandas.read_csv(source, sep='\t', header=None)
-  rap_msu = rap_msu[rap_msu[0]!='None']
-  rap_msu = rap_msu[rap_msu[1]!='None']
-  rap_msu[2] = rap_msu[1].map(lambda s:s.split(',')[0][4:-2])
-  # rap_msu = rap_msu[0:5]
-  # print(rap_msu)
-  new_rap_msu = pandas.DataFrame({'RAP_ID':rap_msu[0], 'MSU_ID':rap_msu[2]})
-  # new_rap_msu = new_rap_msu[0:5]
-  # print(new_rap_msu)
-  new_rap_msu.to_csv(target, index=False)
-  return new_rap_msu
+def get_args():
+  """Parse command line."""
+  parser = argparse.ArgumentParser()
+  parser.add_argument("-i", "--input",  help="input directory",  required=True)
+  parser.add_argument("-o", "--output", help="output directory", required=True)
+  args = parser.parse_args()
+  return args
 
 def load_irgsp(input_dir, output_dir):
   source = input_dir +"Oryza_sativa.IRGSP-1.0.pep.all.fa"
@@ -39,6 +29,24 @@ def load_irgsp(input_dir, output_dir):
   # print(df)
   df.to_csv(target, index=False)
   return df
+
+def load_rap_msu(input_dir, output_dir):
+  source = input_dir +"RAP-MSU_2017-08-04.txt"
+  target = output_dir+"RAP-MSU.csv"
+  if os.path.exists(target) and os.stat(target).st_mtime>=os.stat(source).st_mtime:
+    df = pandas.read_csv(target)
+    return df
+  rap_msu = pandas.read_csv(source, sep='\t', header=None)
+  rap_msu = rap_msu[rap_msu[0]!='None']
+  rap_msu = rap_msu[rap_msu[1]!='None']
+  rap_msu[2] = rap_msu[1].map(lambda s:s.split(',')[0][4:-2])
+  # rap_msu = rap_msu[0:5]
+  # print(rap_msu)
+  new_rap_msu = pandas.DataFrame({'RAP_ID':rap_msu[0], 'MSU_ID':rap_msu[2]})
+  # new_rap_msu = new_rap_msu[0:5]
+  # print(new_rap_msu)
+  new_rap_msu.to_csv(target, index=False)
+  return new_rap_msu
 
 def load_ding_xls(input_dir):
   source = input_dir+"Ding-378-Table_S2.xls"
@@ -155,21 +163,14 @@ def create_negative_protein_pairs(uniprot, output_dir):
   uniprot['seq_x'].to_csv(output_dir+'Negative_protein_A.txt', index=False, header=False)
   uniprot['seq_y'].to_csv(output_dir+'Negative_protein_B.txt', index=False, header=False)
 
-def get_args():
-  """Parse command line."""
-  parser = argparse.ArgumentParser()
-  parser.add_argument("-i", "--input",  help="input directory",  required=True)
-  parser.add_argument("-o", "--output", help="output directory", required=True)
-  args = parser.parse_args()
-  return args
-
 if __name__=="__main__":
   args = get_args()
   input_dir  = args.input  if args.input .endswith("/") else (args.input +"/")
   output_dir = args.output if args.output.endswith("/") else (args.output+"/")
 
-  rap_msu = load_rap_msu(input_dir, output_dir)
   irgsp = load_irgsp(input_dir, output_dir)
+
+  rap_msu = load_rap_msu(input_dir, output_dir)
   ding_378 = load_ding_xls(input_dir)
   ding_378_rap = create_ding_rap(ding_378, rap_msu)
   ding_378 = create_ding(ding_378_rap, irgsp)
@@ -177,6 +178,7 @@ if __name__=="__main__":
   prin_rap = create_prin_rap(prin_xls, rap_msu)
   prin = create_prin(prin_rap, irgsp)
   create_positive_protein_pairs(ding_378, prin, output_dir)
+
   uniprot_rap = load_uniprot_rap(output_dir)
   uniprot = load_uniprot(uniprot_rap, irgsp)
   create_negative_protein_pairs(uniprot, output_dir)
