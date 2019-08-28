@@ -6,6 +6,7 @@ rppi
 - pacman -S --asdeps mingw-w64-$(uname -m)-python3
 - pacman -S --asdeps mingw-w64-$(uname -m)-python3-pandas
 - pacman -S --asdeps mingw-w64-$(uname -m)-python3-biopython
+- pacman -S --asdeps mingw-w64-$(uname -m)-python3-xlrd
 
 ### 构建 IRGSP(id,gene,seq)
 - 从: Oryza_sativa.IRGSP-1.0.pep.all.fa
