@@ -1,6 +1,12 @@
 rppi
 ====
 
+### requirements
+- pacman -S --asdeps make
+- pacman -S --asdeps mingw-w64-$(uname -m)-python3
+- pacman -S --asdeps mingw-w64-$(uname -m)-python3-pandas
+- pacman -S --asdeps mingw-w64-$(uname -m)-python3-biopython
+
 ### 构建 IRGSP(id,gene,seq)
 - 从: Oryza_sativa.IRGSP-1.0.pep.all.fa
 - 到: IRGSP.csv
