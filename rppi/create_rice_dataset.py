@@ -3,10 +3,11 @@ import os
 import pandas
 from Bio import SeqIO
 import re
+import argparse
 
-def load_rap_msu():
-  source = "RAP-MSU_2017-08-04.txt"
-  target = "RAP-MSU.csv"
+def load_rap_msu(input_dir, output_dir):
+  source = input_dir +"RAP-MSU_2017-08-04.txt"
+  target = output_dir+"RAP-MSU.csv"
   if os.path.exists(target) and os.stat(target).st_mtime>=os.stat(source).st_mtime:
     df = pandas.read_csv(target)
     return df
@@ -22,9 +23,9 @@ def load_rap_msu():
   new_rap_msu.to_csv(target, index=False)
   return new_rap_msu
 
-def load_irgsp():
-  source = "Oryza_sativa.IRGSP-1.0.pep.all.fa"
-  target = "IRGSP.csv"
+def load_irgsp(input_dir, output_dir):
+  source = input_dir +"Oryza_sativa.IRGSP-1.0.pep.all.fa"
+  target = output_dir+"IRGSP.csv"
   if os.path.exists(target) and os.stat(target).st_mtime>=os.stat(source).st_mtime:
     df = pandas.read_csv(target)
     return df
@@ -39,8 +40,8 @@ def load_irgsp():
   df.to_csv(target, index=False)
   return df
 
-def load_ding_xls():
-  source = "Ding-378-Table_S2.xls"
+def load_ding_xls(input_dir):
+  source = input_dir+"Ding-378-Table_S2.xls"
   ding_xls = pandas.read_excel(source, header=2, usecols=[1, 10])[0:-2]
   empty_rows = []
   for index, row in ding_xls.iterrows():
@@ -82,8 +83,8 @@ def create_ding(ding_378_rap, irgsp):
   # result.to_csv('Ding.csv', index=False)
   return result
 
-def load_prin_xls():
-  source = "PRIN_V1.0_rice_experimental_determined_interactions.xls"
+def load_prin_xls(input_dir):
+  source = input_dir+"PRIN_V1.0_rice_experimental_determined_interactions.xls"
   prin_xls = pandas.read_excel(source, usecols=[0, 1])
   # print(prin_xls)
   prin_xls['protein_a_short'] = prin_xls['protein_a'].str[4:]
@@ -124,18 +125,18 @@ def create_prin(prin_rice_experimental_rap, irgsp):
   # result.to_csv('PRIN.csv', index=False)
   return result
 
-def create_positive_protein_pairs(ding, prin):
+def create_positive_protein_pairs(ding, prin, output_dir):
   result = pandas.DataFrame(columns=('seq_x', 'seq_y'))
   result = pandas.concat([result, ding])
   result = pandas.concat([result, prin])
   # print(result)
   result = result.drop_duplicates()
   # print(result)
-  result['seq_x'].to_csv('Positive_protein_A.txt', index=False, header=False)
-  result['seq_y'].to_csv('Positive_protein_B.txt', index=False, header=False)
+  result['seq_x'].to_csv(output_dir+'Positive_protein_A.txt', index=False, header=False)
+  result['seq_y'].to_csv(output_dir+'Positive_protein_B.txt', index=False, header=False)
 
-def load_uniprot_rap():
-  df = pandas.read_csv('Subcellular-localization-RAP.csv')
+def load_uniprot_rap(output_dir):
+  df = pandas.read_csv(output_dir+'Subcellular-localization-RAP.csv')
   result = df
   # print(result)
   return result
@@ -150,20 +151,32 @@ def load_uniprot(uniprot_rap, irgsp):
   # result.to_csv('uniprot.csv', index=False)
   return result
 
-def create_negative_protein_pairs(uniprot):
-  uniprot['seq_x'].to_csv('Negative_protein_A.txt', index=False, header=False)
-  uniprot['seq_y'].to_csv('Negative_protein_B.txt', index=False, header=False)
+def create_negative_protein_pairs(uniprot, output_dir):
+  uniprot['seq_x'].to_csv(output_dir+'Negative_protein_A.txt', index=False, header=False)
+  uniprot['seq_y'].to_csv(output_dir+'Negative_protein_B.txt', index=False, header=False)
+
+def get_args():
+  """Parse command line."""
+  parser = argparse.ArgumentParser()
+  parser.add_argument("-i", "--input",  help="input directory",  required=True)
+  parser.add_argument("-o", "--output", help="output directory", required=True)
+  args = parser.parse_args()
+  return args
 
 if __name__=="__main__":
-  rap_msu = load_rap_msu()
-  irgsp = load_irgsp()
-  ding_378 = load_ding_xls()
+  args = get_args()
+  input_dir  = args.input  if args.input .endswith("/") else (args.input +"/")
+  output_dir = args.output if args.output.endswith("/") else (args.output+"/")
+
+  rap_msu = load_rap_msu(input_dir, output_dir)
+  irgsp = load_irgsp(input_dir, output_dir)
+  ding_378 = load_ding_xls(input_dir)
   ding_378_rap = create_ding_rap(ding_378, rap_msu)
   ding_378 = create_ding(ding_378_rap, irgsp)
-  prin_xls = load_prin_xls()
+  prin_xls = load_prin_xls(input_dir)
   prin_rap = create_prin_rap(prin_xls, rap_msu)
   prin = create_prin(prin_rap, irgsp)
-  create_positive_protein_pairs(ding_378, prin)
-  uniprot_rap = load_uniprot_rap()
+  create_positive_protein_pairs(ding_378, prin, output_dir)
+  uniprot_rap = load_uniprot_rap(output_dir)
   uniprot = load_uniprot(uniprot_rap, irgsp)
-  create_negative_protein_pairs(uniprot)
+  create_negative_protein_pairs(uniprot, output_dir)
