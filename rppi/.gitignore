@@ -3,7 +3,7 @@ IRGSP.csv
 # uniprot-*-ids/
 # uniprot-*-tabs/
 Subcellular-localization-RAP.csv
-# Positive_protein_A.txt
-# Positive_protein_B.txt
-# Negative_protein_A.txt
-# Negative_protein_B.txt
+Positive_protein_A.txt
+Positive_protein_B.txt
+Negative_protein_A.txt
+Negative_protein_B.txt

@@ -10,6 +10,7 @@ def get_args():
   parser = argparse.ArgumentParser()
   parser.add_argument("-i", "--input",  help="input directory",  required=True)
   parser.add_argument("-o", "--output", help="output directory", required=True)
+  parser.add_argument("--printype", help="type of prin", required=False)
   args = parser.parse_args()
   return args
 
@@ -105,6 +106,15 @@ def load_prin_xls(input_dir):
   # result.to_csv('PRIN_V1.0_rice_experimental_determined_interactions.csv', index=False)
   return result
 
+def load_prin_high_coverage(input_dir):
+  source = input_dir +"PRIN_V1.0_rice_predicted_interactions_High_Coverage.txt"
+  prin_high_coverage = pandas.read_csv(source, usecols=[1, 2], sep='\t', header=None)
+  prin_high_coverage['protein_a_short'] = prin_high_coverage[1].str[4:-2]
+  prin_high_coverage['protein_b_short'] = prin_high_coverage[2].str[4:-2]
+  result = prin_high_coverage[['protein_a_short','protein_b_short']]
+  result = result.drop_duplicates()
+  return result
+
 def create_prin_rap(prin_rice_experimental, rap_msu):
   # prin_rice_experimental = pandas.read_csv('PRIN_V1.0_rice_experimental_determined_interactions.csv')
   # print(prin_rice_experimental)
@@ -167,6 +177,7 @@ if __name__=="__main__":
   args = get_args()
   input_dir  = args.input  if args.input .endswith("/") else (args.input +"/")
   output_dir = args.output if args.output.endswith("/") else (args.output+"/")
+  printype = args.printype
 
   irgsp = load_irgsp(input_dir, output_dir)
 
@@ -174,7 +185,11 @@ if __name__=="__main__":
   ding_378 = load_ding_xls(input_dir)
   ding_378_rap = create_ding_rap(ding_378, rap_msu)
   ding_378 = create_ding(ding_378_rap, irgsp)
-  prin_xls = load_prin_xls(input_dir)
+  # prin_xls = load_prin_xls(input_dir)
+  if printype=="high_coverage":
+    prin_xls = load_prin_high_coverage(input_dir)
+  else:
+    prin_xls = load_prin_xls(input_dir)
   prin_rap = create_prin_rap(prin_xls, rap_msu)
   prin = create_prin(prin_rap, irgsp)
   create_positive_protein_pairs(ding_378, prin, output_dir)

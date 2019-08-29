@@ -4,9 +4,10 @@ SOURCE=\
 	resource/RAP-MSU_2017-08-04.txt \
 	resource/Ding-378-Table_S2.xls \
 	resource/PRIN_V1.0_rice_experimental_determined_interactions.xls \
+	resource/PRIN_V1.0_rice_predicted_interactions_High_Coverage.txt \
 
 .PHONY: default
-default: Rice
+default: Rice Rice2
 
 .PHONY: uniprot-ids
 uniprot-ids:
@@ -18,3 +19,10 @@ Rice/Subcellular-localization-RAP.csv: uniprot-export-rap-id.py
 .PHONY: Rice
 Rice: create_rice_dataset.py $(SOURCE) Rice/Subcellular-localization-RAP.csv
 	python create_rice_dataset.py -i resource -o Rice
+
+Rice2/Subcellular-localization-RAP.csv: uniprot-export-rap-id.py
+	python uniprot-export-rap-id.py -o "$@"
+
+.PHONY: Rice2
+Rice2: create_rice_dataset.py $(SOURCE) Rice2/Subcellular-localization-RAP.csv
+	python create_rice_dataset.py -i resource -o Rice2 --printype high_coverage
