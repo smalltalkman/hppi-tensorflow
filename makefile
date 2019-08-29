@@ -366,7 +366,7 @@ $(CD_DATAS_STATUS):$(CD_CT_ZIP) $(CD_AC_ZIP) $(CD_LD_ZIP) $(CD_MOS_ZIP)
 $(PREDICT_PPI_STATUS):$(PREDICT_PPI_GENERATOR) $(PREDICT_PPI_ZIP)
 	unzip -o $(PREDICT_PPI_ZIP) -d $(PREDICT_PPI_DIR)
 	mkdir -p $(PREDICT_PPI_DIR)/Rice
-	cp -u rppi/{Positive,Negative}_protein_{A,B}.txt $(PREDICT_PPI_DIR)/Rice
+	cp -up rppi/Rice/{Positive,Negative}_protein_{A,B}.txt $(PREDICT_PPI_DIR)/Rice
 	python $(PREDICT_PPI_GENERATOR)
 	@touch -m $(PREDICT_PPI_STATUS)
 	@echo "$(PREDICT_PPI_DIR) is ok"
