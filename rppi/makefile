@@ -4,6 +4,7 @@ SOURCE=\
 	resource/RAP-MSU_2017-08-04.txt \
 	resource/Ding-378-Table_S2.xls \
 	resource/PRIN_V1.0_rice_experimental_determined_interactions.xls \
+	resource/PRIN_V1.0_rice_predicted_interactions_High_Confidence.csv \
 	resource/PRIN_V1.0_rice_predicted_interactions_High_Coverage.txt \
 
 .PHONY: default
