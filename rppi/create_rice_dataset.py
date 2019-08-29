@@ -25,7 +25,19 @@ def load_irgsp(input_dir, output_dir):
     if record.description:
       gene = re.findall( 'gene:([^ ]+)', record.description )
       if gene:
-        df.loc[df.shape[0]] = [ record.id, gene[0], str(record.seq) ]
+        # df.loc[df.shape[0]] = [ record.id, gene[0], str(record.seq) ]
+        seq = str(record.seq)
+        valid = True
+        valid = valid and ("*" not in seq)
+        valid = valid and ("B" not in seq)
+        valid = valid and ("J" not in seq)
+        valid = valid and ("O" not in seq)
+        valid = valid and ("U" not in seq)
+        valid = valid and ("X" not in seq)
+        valid = valid and ("Z" not in seq)
+        valid = valid and (len(seq) >= 50)
+        if valid:
+          df.loc[df.shape[0]] = [ record.id, gene[0], seq ]
     # break
   # print(df)
   df.to_csv(target, index=False)
