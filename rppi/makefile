@@ -21,8 +21,8 @@ Rice: create_rice_dataset.py $(SOURCE) Rice/Subcellular-localization-RAP.csv
 	python create_rice_dataset.py -i resource -o Rice
 
 Rice2/Subcellular-localization-RAP.csv: uniprot-export-rap-id.py
-	python uniprot-export-rap-id.py -o "$@"
+	python uniprot-export-rap-id.py -n 50 -o "$@"
 
 .PHONY: Rice2
 Rice2: create_rice_dataset.py $(SOURCE) Rice2/Subcellular-localization-RAP.csv
-	python create_rice_dataset.py -i resource -o Rice2 --printype high_coverage
+	python create_rice_dataset.py -i resource -o Rice2 --printype high_confidence

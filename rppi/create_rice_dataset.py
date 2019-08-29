@@ -106,6 +106,15 @@ def load_prin_xls(input_dir):
   # result.to_csv('PRIN_V1.0_rice_experimental_determined_interactions.csv', index=False)
   return result
 
+def load_prin_high_confidence(input_dir):
+  source = input_dir +"PRIN_V1.0_rice_predicted_interactions_High_Confidence.csv"
+  prin_high_confidence = pandas.read_csv(source, usecols=[1, 2])
+  prin_high_confidence['protein_a_short'] = prin_high_confidence['protein_a'].str[4:-2]
+  prin_high_confidence['protein_b_short'] = prin_high_confidence['protein_b'].str[4:-2]
+  result = prin_high_confidence[['protein_a_short','protein_b_short']]
+  result = result.drop_duplicates()
+  return result
+
 def load_prin_high_coverage(input_dir):
   source = input_dir +"PRIN_V1.0_rice_predicted_interactions_High_Coverage.txt"
   prin_high_coverage = pandas.read_csv(source, usecols=[1, 2], sep='\t', header=None)
@@ -186,7 +195,9 @@ if __name__=="__main__":
   ding_378_rap = create_ding_rap(ding_378, rap_msu)
   ding_378 = create_ding(ding_378_rap, irgsp)
   # prin_xls = load_prin_xls(input_dir)
-  if printype=="high_coverage":
+  if printype=="high_confidence":
+    prin_xls = load_prin_high_confidence(input_dir)
+  elif printype=="high_coverage":
     prin_xls = load_prin_high_coverage(input_dir)
   else:
     prin_xls = load_prin_xls(input_dir)
