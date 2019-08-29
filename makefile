@@ -262,6 +262,7 @@ PREDICT_PPI_RESULTS= \
 	model/result_of_tf_estimator_rice_ac(420x2)_64_relu_Adam_0.001_dropout_0.csv \
 	model/result_of_tf_estimator_rice_ac(420x2)_64_relu_Adam_0.0001_dropout_0.csv \
 	model/result_of_tf_estimator_rice_ac(420x2)_64_relu_Adam_1e-05_dropout_0.csv \
+	model/result_of_tf_estimator_rice2_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
 	model/result_of_tf_estimator_c_elegan_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
 	model/result_of_tf_estimator_drosophila_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
 	model/result_of_tf_estimator_e_coli_ct+ac(1106x2)_256x256x256_relu_Adam_0.001_dropout_0.7.csv \
