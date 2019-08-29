@@ -367,6 +367,8 @@ $(PREDICT_PPI_STATUS):$(PREDICT_PPI_GENERATOR) $(PREDICT_PPI_ZIP)
 	unzip -o $(PREDICT_PPI_ZIP) -d $(PREDICT_PPI_DIR)
 	mkdir -p $(PREDICT_PPI_DIR)/Rice
 	cp -up rppi/Rice/{Positive,Negative}_protein_{A,B}.txt $(PREDICT_PPI_DIR)/Rice
+	mkdir -p $(PREDICT_PPI_DIR)/Rice2
+	cp -up rppi/Rice2/{Positive,Negative}_protein_{A,B}.txt $(PREDICT_PPI_DIR)/Rice2
 	python $(PREDICT_PPI_GENERATOR)
 	@touch -m $(PREDICT_PPI_STATUS)
 	@echo "$(PREDICT_PPI_DIR) is ok"

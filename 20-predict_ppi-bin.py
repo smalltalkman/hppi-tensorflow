@@ -319,6 +319,7 @@ def main():
             ,("/data/predict_PPI/Human", 0.6)
             ,("/data/predict_PPI/Yeast", 0.6)
             ,("/data/predict_PPI/Rice", 0.6)
+            ,("/data/predict_PPI/Rice2", 0.6)
             ]
     for dir, ratio in infos:
         source_dir = cwd+dir
