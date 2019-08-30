@@ -22,9 +22,9 @@ dataset = np.loadtxt('pima-indians-diabetes.csv', delimiter=',')
 X = dataset[:, 0:8]
 Y = dataset[:,   8]
 
-from sklearn.cross_validation import StratifiedKFold, cross_val_score
+from sklearn.model_selection import StratifiedKFold, cross_val_score
 
-kfold = StratifiedKFold(Y, n_folds=10, shuffle=True, random_state=seed)
+kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
 results = cross_val_score(model, X, Y, cv=kfold)
 
 print(np.average(results))
