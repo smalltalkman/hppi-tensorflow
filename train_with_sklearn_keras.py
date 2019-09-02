@@ -7,14 +7,8 @@ np.random.seed(SEED)
 from keras.models import Sequential
 from keras.layers import Dense
 
-def create_model(input_dim, hidden_units, kernel_initializer, activation, loss, optimizer, metrics=None):
+def create_model(input_dim, hidden_units, kernel_initializer, activation, loss, optimizer, metrics):
   model = Sequential()
-
-  if isinstance(hidden_units, str):
-    hidden_units = list(map(lambda x:int(x), hidden_units.split('x')))
-
-  if metrics is None:
-    metrics = ['accuracy']
 
   for index, hidden_unit in enumerate(hidden_units):
     if index == 0:
@@ -31,11 +25,12 @@ from keras.wrappers.scikit_learn import KerasClassifier
 
 model = KerasClassifier(build_fn=create_model
                        ,input_dim=686
-                       ,hidden_units='12x8'
+                       ,hidden_units=[256, 256, 256]
                        ,kernel_initializer='uniform'
                        ,activation='relu'
                        ,loss='binary_crossentropy'
                        ,optimizer='adam'
+                       ,metrics=['accuracy']
                        ,epochs=50
                        ,batch_size=128
                        )
