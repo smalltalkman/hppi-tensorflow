@@ -5,9 +5,9 @@ import numpy as np
 np.random.seed(SEED)
 
 from keras.models import Sequential
-from keras.layers import Dense
+from keras.layers import Dense, Dropout
 
-def create_model(input_dim, hidden_units, kernel_initializer, activation, loss, optimizer, metrics):
+def create_model(input_dim, hidden_units, kernel_initializer, activation, dropout_rate, loss, optimizer, metrics):
   model = Sequential()
 
   for index, hidden_unit in enumerate(hidden_units):
@@ -15,6 +15,7 @@ def create_model(input_dim, hidden_units, kernel_initializer, activation, loss, 
       model.add(Dense(hidden_unit, kernel_initializer=kernel_initializer, activation=activation, input_dim=input_dim))
     else:
       model.add(Dense(hidden_unit, kernel_initializer=kernel_initializer, activation=activation))
+    model.add(Dropout(dropout_rate))
 
   model.add(Dense(1, kernel_initializer=kernel_initializer, activation='sigmoid'))
 
@@ -28,6 +29,7 @@ model = KerasClassifier(build_fn=create_model
                        ,hidden_units=[256, 256, 256]
                        ,kernel_initializer='uniform'
                        ,activation='relu'
+                       ,dropout_rate=0.4
                        ,loss='binary_crossentropy'
                        ,optimizer='adam'
                        ,metrics=['accuracy']
