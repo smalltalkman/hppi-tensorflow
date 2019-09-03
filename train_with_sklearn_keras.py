@@ -25,7 +25,6 @@ def create_model(input_dim, hidden_units, kernel_initializer, activation, dropou
 def main():
 
   from keras.wrappers.scikit_learn import KerasClassifier
-  import keras_metrics as km
 
   model = KerasClassifier(build_fn=create_model
                          ,input_dim=686
@@ -35,7 +34,7 @@ def main():
                          ,dropout_rate=0.4
                          ,loss='binary_crossentropy'
                          ,optimizer='adam'
-                         ,metrics=['accuracy', km.binary_precision(), km.binary_recall()]
+                         ,metrics=['accuracy']
                          ,epochs=50
                          ,batch_size=128
                          )
