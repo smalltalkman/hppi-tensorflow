@@ -48,9 +48,9 @@ def main():
 
   Y = pandas.concat([ct_Y, ac_Y, ld_Y])
 
-  from sklearn.model_selection import train_test_split
+  # from sklearn.model_selection import train_test_split
 
-  X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.4, random_state=SEED)
+  # X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.4, random_state=SEED)
 
   from keras.wrappers.scikit_learn import KerasClassifier
 
@@ -95,12 +95,12 @@ def main():
 
   from sklearn.ensemble import VotingClassifier
 
-  voting = VotingClassifier( estimators=[("ct", ct_model), ("ac", ac_model), ("ld", ld_model)], voting="hard" ) # soft
+  model = VotingClassifier( estimators=[("ct", ct_model), ("ac", ac_model), ("ld", ld_model)], voting="hard" ) # soft
 
   from sklearn.model_selection import StratifiedKFold, cross_val_score
 
   kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=SEED)
-  results = cross_val_score(voting, X, Y, cv=kfold)
+  results = cross_val_score(model, X, Y, cv=kfold)
   print(np.average(results))
 
 if __name__ == "__main__":
