@@ -10,8 +10,9 @@ np.random.seed(SEED)
 
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
+from keras.optimizers import Adam
 
-def create_model(input_dim, hidden_units, kernel_initializer, activation, dropout_rate, loss, optimizer, metrics):
+def create_model(input_dim, hidden_units, kernel_initializer, activation, dropout_rate, loss, learning_rate, metrics):
   model = Sequential()
 
   for index, hidden_unit in enumerate(hidden_units):
@@ -23,7 +24,7 @@ def create_model(input_dim, hidden_units, kernel_initializer, activation, dropou
 
   model.add(Dense(1, kernel_initializer=kernel_initializer, activation='sigmoid'))
 
-  model.compile(loss=loss, optimizer=optimizer, metrics=metrics)
+  model.compile(loss=loss, optimizer=Adam(lr=learning_rate), metrics=metrics)
   return model
 
 import hppi, pandas
@@ -61,7 +62,7 @@ def main():
                             ,activation='relu'
                             ,dropout_rate=0.4
                             ,loss='binary_crossentropy'
-                            ,optimizer='adam'
+                            ,learning_rate=0.001
                             ,metrics=['accuracy']
                             ,epochs=50
                             ,batch_size=128
@@ -74,7 +75,7 @@ def main():
                             ,activation='relu'
                             ,dropout_rate=0.7
                             ,loss='binary_crossentropy'
-                            ,optimizer='adam'
+                            ,learning_rate=0.001
                             ,metrics=['accuracy']
                             ,epochs=50
                             ,batch_size=128
@@ -87,7 +88,7 @@ def main():
                             ,activation='relu'
                             ,dropout_rate=0.1
                             ,loss='binary_crossentropy'
-                            ,optimizer='adam'
+                            ,learning_rate=0.0001
                             ,metrics=['accuracy']
                             ,epochs=50
                             ,batch_size=128
