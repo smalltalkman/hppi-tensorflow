@@ -40,7 +40,7 @@ X_train  = sequence.pad_sequences(X_train,  maxlen=max_length)
 X_test   = sequence.pad_sequences(X_test,   maxlen=max_length)
 
 from keras.models import Sequential
-from keras.layers import Dense
+from keras.layers import Dense, Dropout
 from keras.layers import LSTM
 from keras.layers import Embedding
 
@@ -48,6 +48,7 @@ emb_vecor_length = 256
 model = Sequential()
 model.add(Embedding(AMINO_ACID_DIM, emb_vecor_length, mask_zero=True, input_length=max_length))
 model.add(LSTM(100))
+# model.add(Dropout(0.3))
 model.add(Dense(1, activation='sigmoid'))
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 print(model.summary())
