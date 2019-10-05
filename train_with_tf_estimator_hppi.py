@@ -103,7 +103,13 @@ if __name__ == "__main__":
   num_classes = coding['num_classes'] # 2 # HPPI total classes
   hidden_units = model['hidden_units'] # [256, 256, 256]
   activation_fn = tf.nn.relu
-  optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
+  # optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
+  if 'optimizer' in model:
+    optimizer_name = model['optimizer']
+    from tensorflow_estimator.python.estimator.canned import optimizers
+    optimizer = optimizers.get_optimizer_instance(optimizer_name, learning_rate=learning_rate)
+  else:
+    optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
 
   cwd = os.getcwd()
   data_sets_dir = cwd+"/"+data_set['dir'] # "/data/02-ct-bin"

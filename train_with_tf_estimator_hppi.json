@@ -302,5 +302,8 @@
       { "data_sets_info" : "cd_ac", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 },
     "cd_ld(1260x2)_256x256x256_relu_Adam_0.001_dropout_0" : 
       { "data_sets_info" : "cd_ld", "hidden_units" : [256,256,256], "learning_rate" : 0.001, "dropout" : 0, "times" : 30 }
+
+    ,"ct(686x2)_64_relu_Adagrad_0.01_dropout_0" : { "data_sets_info" : "ct", "hidden_units" : [64], "optimizer" : "Adagrad", "learning_rate" : 0.01, "dropout" : 0, "times" : 30 }
+    ,"ct(686x2)_64_relu_RMSProp_0.01_dropout_0" : { "data_sets_info" : "ct", "hidden_units" : [64], "optimizer" : "RMSProp", "learning_rate" : 0.01, "dropout" : 0, "times" : 30 }
   }
 }
