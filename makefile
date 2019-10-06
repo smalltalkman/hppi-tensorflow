@@ -148,6 +148,11 @@ CT_MODEL_RESULTS= \
 	\
 	model/result_of_tf_estimator_ct(686x2)_64_relu_Adagrad_0.01_dropout_0.csv \
 	model/result_of_tf_estimator_ct(686x2)_64_relu_RMSProp_0.01_dropout_0.csv \
+	\
+	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.01_dropout_0_batch_032.csv \
+	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.01_dropout_0_batch_064.csv \
+	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.01_dropout_0_batch_128.csv \
+	model/result_of_tf_estimator_ct(686x2)_64_relu_Adam_0.01_dropout_0_batch_256.csv \
 
 AC_MODEL_RESULTS= \
 	model/result_of_tf_estimator_ac(420x2)_64_relu_Adam_0.01_dropout_0.csv \

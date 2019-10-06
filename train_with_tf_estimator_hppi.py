@@ -94,7 +94,11 @@ if __name__ == "__main__":
   # Training Parameters
   learning_rate = model['learning_rate'] # 0.001 # 0.01 => 0.001 => 0.0001
   dropout = model['dropout'] # 0.1
-  batch_size = 128
+  # batch_size = 128
+  if 'batch' in model:
+    batch_size = model['batch']
+  else:
+    batch_size = 128
   num_steps = 10000
   times = model['times'] # 1
 

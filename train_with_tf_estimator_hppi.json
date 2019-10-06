@@ -305,5 +305,10 @@
 
     ,"ct(686x2)_64_relu_Adagrad_0.01_dropout_0" : { "data_sets_info" : "ct", "hidden_units" : [64], "optimizer" : "Adagrad", "learning_rate" : 0.01, "dropout" : 0, "times" : 30 }
     ,"ct(686x2)_64_relu_RMSProp_0.01_dropout_0" : { "data_sets_info" : "ct", "hidden_units" : [64], "optimizer" : "RMSProp", "learning_rate" : 0.01, "dropout" : 0, "times" : 30 }
+
+    ,"ct(686x2)_64_relu_Adam_0.01_dropout_0_batch_032" : { "data_sets_info" : "ct", "hidden_units" : [64], "learning_rate" : 0.01, "dropout" : 0, "batch" :  32, "times" : 30 }
+    ,"ct(686x2)_64_relu_Adam_0.01_dropout_0_batch_064" : { "data_sets_info" : "ct", "hidden_units" : [64], "learning_rate" : 0.01, "dropout" : 0, "batch" :  64, "times" : 30 }
+    ,"ct(686x2)_64_relu_Adam_0.01_dropout_0_batch_128" : { "data_sets_info" : "ct", "hidden_units" : [64], "learning_rate" : 0.01, "dropout" : 0, "batch" : 128, "times" : 30 }
+    ,"ct(686x2)_64_relu_Adam_0.01_dropout_0_batch_256" : { "data_sets_info" : "ct", "hidden_units" : [64], "learning_rate" : 0.01, "dropout" : 0, "batch" : 256, "times" : 30 }
   }
 }
